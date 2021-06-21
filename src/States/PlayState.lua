@@ -1,0 +1,157 @@
+-- Represents the state of the game in which we are actively playing;
+-- player should control the bun, with his mouse cursor
+PlayState = Class {
+    __includes = BaseState
+}
+
+function PlayState:enter(params)
+    player = {}
+    edges = {}
+    boxes = {}
+    e = EffectManager()
+    mouseHandler = MouseHandler()
+
+    -- new Box2D "world" which will run all of our physics calculations
+    world = love.physics.newWorld(0, 1500)
+
+    -- body that stores velocity and position and all fixtures
+    player.body = love.physics.newBody(world, Window.width - 100, 25, 'dynamic')
+
+    -- shape that we will attach using a fixture to our body for collision detection
+    player.shape = love.physics.newCircleShape(20)
+
+    -- fixture that attaches a shape to our body
+    player.fixture = love.physics.newFixture(player.body, player.shape)
+    player.fixture:setRestitution(1.1)
+
+    CreateFullEdge('left')
+    CreateFullEdge('right')
+    CreateFullEdge('upper')
+
+    CreateEdge(0, 0, Window.width - 200, 0)
+
+    CreateRectangle(Window.width - 90, Window.height - 100, 120, 10, -35)
+    CreateRectangle(800, 400, 260, 10, 12.25)
+    CreateRectangle(10, 580, 280, 10, 45)
+    CreateDownOpening(Window.width / 2, 100)
+end
+
+function PlayState:update(dt)
+    -- update world, calculating collisions
+    if dt < 0.04 then
+        world:update(dt)
+        e:update(dt)
+        mouseHandler:update(dt)
+    end
+
+    player.x, player.y = player.body:getPosition()
+end
+
+function PlayState:render()
+    love.graphics.clear(0.16, 0.19, 0.2, 1)
+    e:draw()
+    mouseHandler:render()
+    love.graphics.setColor(0.99, 0.85, 0, 1)
+    love.graphics.circle("fill", player.x, player.y, 20)
+    love.graphics.setLineWidth(4)
+    love.graphics.setColor(0.51, 0.51, 0.51, 1)
+    for i, v in ipairs(edges) do
+        love.graphics.line(v[1]:getWorldPoints(v[2]:getPoints()))
+    end
+    for i, v in ipairs(boxes) do
+        love.graphics.polygon('fill', v[1]:getWorldPoints(v[2]:getPoints()))
+    end
+end
+
+function CreateEdge(x, y, width, height)
+    --  static ground body
+    table.insert(b, love.physics.newBody(world, x, y, 'static'))
+
+    -- edge shape Box2D provides, perfect for ground
+    table.insert(b, love.physics.newEdgeShape(x, y, width, height))
+
+    -- affix edge shape to our body
+    table.insert(b, love.physics.newFixture(b[1], b[2]))
+    table.insert(edges, b)
+end
+
+function CreateFullEdge(place)
+    if place == 'left' then
+        b = {}
+        --  static ground body
+        table.insert(b, love.physics.newBody(world, 0, 0, 'static'))
+
+        -- edge shape Box2D provides, perfect for ground
+        table.insert(b, love.physics.newEdgeShape(0, 0, 0, Window.height))
+
+        -- affix edge shape to our body
+        table.insert(b, love.physics.newFixture(b[1], b[2]))
+
+        table.insert(edges, b)
+    elseif place == 'right' then
+        b = {}
+        --  static ground body
+        table.insert(b, love.physics.newBody(world, Window.width, 0, 'static'))
+
+        -- edge shape Box2D provides, perfect for ground
+        table.insert(b, love.physics.newEdgeShape(0, 0, 0, Window.height))
+
+        -- affix edge shape to our body
+        table.insert(b, love.physics.newFixture(b[1], b[2]))
+
+        table.insert(edges, b)
+    elseif place == 'down' then
+        b = {}
+        --  static ground body
+        table.insert(b, love.physics.newBody(world, 0, Window.height, 'static'))
+
+        -- edge shape Box2D provides, perfect for ground
+        table.insert(b, love.physics.newEdgeShape(0, 0, Window.width, 0))
+
+        -- affix edge shape to our body
+        table.insert(b, love.physics.newFixture(b[1], b[2]))
+
+        table.insert(edges, b)
+    elseif place == 'upper' then
+        b = {}
+        --  static ground body
+        table.insert(b, love.physics.newBody(world, 0, 0, 'static'))
+
+        -- edge shape Box2D provides, perfect for ground
+        table.insert(b, love.physics.newEdgeShape(0, 0, Window.width, 0))
+
+        -- affix edge shape to our body
+        table.insert(b, love.physics.newFixture(b[1], b[2]))
+
+        table.insert(edges, b)
+    end
+end
+
+function CreateBox(x, y, size, rotation)
+    local Box = {}
+    table.insert(Box, love.physics.newBody(world, x, y, 'static'))
+    table.insert(Box, love.physics.newRectangleShape(size or 100, size or 100))
+    table.insert(Box, love.physics.newFixture(Box[1], Box[2]))
+    if rotation then
+        Box[1]:setAngle(rotation * (3.14159265 / 180))
+    end
+    table.insert(boxes, Box)
+end
+
+function CreateRectangle(x, y, width, height, rotation, xOffset, yOffset)
+    local Box = {}
+    table.insert(Box, love.physics.newBody(world, x, y, 'static'))
+    table.insert(Box, love.physics.newRectangleShape(width or 100, height or 100))
+    table.insert(Box, love.physics.newFixture(Box[1], Box[2]))
+    Box[1]:setPosition(x + (xOffset or 0), y + (yOffset or 0))
+    if rotation then
+        Box[1]:setAngle(rotation * (3.14159265 / 180))
+    end
+    table.insert(boxes, Box)
+end
+
+-- CreateDownOpening(250, 100)
+function CreateDownOpening(x, size)
+    CreateRectangle(0, Window.height - 5, Window.width, 5, 0, -Window.width / 2 + x - size / 2, 0)
+    CreateRectangle(Window.width, Window.height - 5, Window.width, 5, 0, -Window.width / 2 + x + size / 2, 0)
+end
