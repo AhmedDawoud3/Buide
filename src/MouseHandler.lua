@@ -43,7 +43,7 @@ function MouseHandler:AddToGame()
     local size = math.sqrt((self.tempRect.x - self.tempRect.x2) ^ 2 + (self.tempRect.y - self.tempRect.y2) ^ 2)
     local rotation = getAngle(self.tempRect.x, self.tempRect.y, self.tempRect.x2, self.tempRect.y2)
 
-    CreateRectangle(x, y, size, height, rotation * (180 / 3.14159265))
+    CreateCustomRectangle(x, y, size, height, rotation * (180 / 3.14159265))
 end
 
 function getAngle(x1, y1, x2, y2)
