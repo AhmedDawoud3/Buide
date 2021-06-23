@@ -23,7 +23,7 @@ function PlayState:enter(params)
 
     -- fixture that attaches a shape to our body
     player.fixture = love.physics.newFixture(player.body, player.shape)
-    player.fixture:setRestitution(1.1)
+    player.fixture:setRestitution(1.05)
 
     CreateFullEdge('left')
     CreateFullEdge('right')
@@ -49,6 +49,8 @@ function PlayState:update(dt)
         ClearAllCustomBoxes()
     elseif love.keyboard.wasPressed('r') then
         Restart()
+    elseif love.keyboard.isDown('lctrl') and love.keyboard.wasPressed('z') then
+        CleareLastCustomBox()
     end
 
     player.x, player.y = player.body:getPosition()
@@ -58,14 +60,16 @@ end
 
 function PlayState:render()
     love.graphics.clear(0.16, 0.19, 0.2, 1)
-    -- e:draw()
+    e:draw()
     mouseHandler:render()
     local endX, endY = player.body:getLinearVelocity()
     love.graphics.setColor(0.99, 0.85, 0, 1)
     love.graphics.circle("fill", player.x, player.y, 20)
-    love.graphics.setColor(0, 1, 0, 1)
-    love.graphics.line(player.x, player.y, player.x + endX / 15, player.y + endY / 15)
-   love.graphics.setLineWidth(4)
+    if gStateMachine.DEBUG then
+        love.graphics.setColor(0, 1, 0, 1)
+        love.graphics.line(player.x, player.y, player.x + endX / 15, player.y + endY / 15)
+    end
+    love.graphics.setLineWidth(4)
     love.graphics.setColor(0.51, 0.51, 0.51, 1)
     for i, v in ipairs(edges) do
         love.graphics.line(v[1]:getWorldPoints(v[2]:getPoints()))
@@ -92,6 +96,13 @@ function ClearAllCustomBoxes()
         v[3]:destroy()
     end
     cBoxes = {}
+end
+
+function CleareLastCustomBox()
+    if #cBoxes > 0 then
+        cBoxes[#cBoxes][3]:destroy()
+        cBoxes[#cBoxes] = nil
+    end
 end
 
 function CreateEdge(x, y, width, height)
