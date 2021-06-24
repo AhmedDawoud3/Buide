@@ -61,7 +61,6 @@ end
 function PlayState:render()
     love.graphics.clear(0.16, 0.19, 0.2, 1)
     e:draw()
-    mouseHandler:render()
     local endX, endY = player.body:getLinearVelocity()
     love.graphics.setColor(0.99, 0.85, 0, 1)
     love.graphics.circle("fill", player.x, player.y, 20)
@@ -78,8 +77,9 @@ function PlayState:render()
         love.graphics.polygon('fill', v[1]:getWorldPoints(v[2]:getPoints()))
     end
     for i, v in ipairs(cBoxes) do
-        love.graphics.polygon('fill', v[1]:getWorldPoints(v[2]:getPoints()))
+            love.graphics.polygon('fill', v[1]:getWorldPoints(v[2]:getPoints()))
     end
+    mouseHandler:render()
 end
 
 function Restart()
