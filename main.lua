@@ -1,5 +1,11 @@
 require 'src.Dependencies'
 
+fonts = {
+    ['Regular13'] = love.graphics.newFont('fonts/MontserratRegular.ttf', 13),
+    ['Bold16'] = love.graphics.newFont('fonts/MontserratBold.ttf', 16),
+    ['Bold32'] = love.graphics.newFont('fonts/MontserratBold.ttf', 32)
+}
+
 function love.load()
     love.window.setTitle("Buide")
     math.randomseed(os.time())
@@ -85,6 +91,7 @@ end
 
 function DisplayFPS()
     -- simple FPS display across all states
+    love.graphics.setFont(fonts['Regular13'])
     love.graphics.setColor(0, 1, 0, 1)
     love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 5, 5)
     love.graphics.setColor(1, 1, 1, 1)

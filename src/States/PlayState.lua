@@ -11,6 +11,8 @@ function PlayState:enter(params)
     cBoxes = {}
     e = EffectManager()
     mouseHandler = MouseHandler()
+    playing = true
+    timer = 0
 
     -- new Box2D "world" which will run all of our physics calculations
     world = love.physics.newWorld(0, 1500)
@@ -56,6 +58,12 @@ function PlayState:update(dt)
     player.x, player.y = player.body:getPosition()
     local vX, vY = player.body:getLinearVelocity()
     player.velocity = math.sqrt(vY ^ 2 + vY ^ 2)
+    if playing then
+        timer = timer + dt
+    end
+    if player.y > Window.height then
+        playing = false
+    end
 end
 
 function PlayState:render()
@@ -77,9 +85,22 @@ function PlayState:render()
         love.graphics.polygon('fill', v[1]:getWorldPoints(v[2]:getPoints()))
     end
     for i, v in ipairs(cBoxes) do
-            love.graphics.polygon('fill', v[1]:getWorldPoints(v[2]:getPoints()))
+        love.graphics.polygon('fill', v[1]:getWorldPoints(v[2]:getPoints()))
     end
     mouseHandler:render()
+    love.graphics.setFont(fonts['Bold16'])
+    if playing then
+        love.graphics.setColor(1, 1, 1, 1)
+        love.graphics.printf('Time: ' .. string.sub(tostring(timer), 1, 4), 0, 30, Window.width, 'center')
+    else
+        love.graphics.setColor(0, 0, 0, 0.3)
+        love.graphics.rectangle('fill', 0, 0, Window.width, Window.height)
+        love.graphics.setFont(fonts['Bold32'])
+        love.graphics.setColor(1, 0.1, 0.1, 1)
+        love.graphics.printf('Time: ' .. string.sub(tostring(timer), 1, 8), 0, Window.height / 2 - 30, Window.width,
+            'center')
+    end
+
 end
 
 function Restart()
@@ -89,6 +110,8 @@ function Restart()
     -- fixture that attaches a shape to our body
     player.fixture = love.physics.newFixture(player.body, player.shape)
     player.fixture:setRestitution(1.1)
+    timer = 0
+    playing = true
 end
 
 function ClearAllCustomBoxes()
