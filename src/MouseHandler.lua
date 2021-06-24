@@ -17,14 +17,18 @@ function MouseHandler:update(dt)
         self.tempRect.en = Vector(10, 10)
         self.isDown = true
     end
+    if love.mouse.wasPressed(2) and self.isDown then
+        self.isDown = false
+        self.tempRect.en = self.tempRect.st
+    end
     if self.isDown then
         self.tempRect.en = self.pos
     end
-    if love.mouse.wasReleased(1) then
+    if love.mouse.wasReleased(1) and self.isDown then
         self:AddToGame()
     end
 
-    if love.mouse.wasReleased(2) then
+    if love.mouse.wasReleased(2) and not self.isDown then
         self:CheckCollisionWithCBoxes()
     end
 
@@ -44,7 +48,7 @@ function MouseHandler:render()
         love.graphics.line(start.x, start.y, en.x, en.y)
         love.graphics.setLineWidth(1)
     end
-    if love.mouse.isDown(2) then
+    if love.mouse.isDown(2) and not self.isDown then
         for i, v in ipairs(cBoxes) do
             if CheckMouseCollisionWithRectangle(self.pos, v[1], v[2], true) then
                 break
@@ -67,8 +71,8 @@ function MouseHandler:CheckCollisionWithCBoxes()
     end
 end
 
-function CheckMouseCollisionWithRectangle(mousePos, v1, v2, DRAW)
-    local x1, y1, x2, y2, x3, y3, x4, y4 = v1:getWorldPoints(v2:getPoints())
+function CheckMouseCollisionWithRectangle(mousePos, body, shape, DRAW)
+    local x1, y1, x2, y2, x3, y3, x4, y4 = body:getWorldPoints(shape:getPoints())
     local trX, trY = x1, y1
     -- TODO Check Bound cBoxes
     --     if y3 - y1 > 0 then
@@ -120,6 +124,7 @@ function MouseHandler:AddToGame()
     if size > 20 then
         CreateCustomRectangle(x, y, size, height, rotation * (180 / 3.14159265))
     end
+    self.isDown = false
 end
 
 function getAngle(x1, y1, x2, y2)
