@@ -71,7 +71,9 @@ function PlayState:render()
     e:draw()
     local endX, endY = player.body:getLinearVelocity()
     love.graphics.setColor(0.99, 0.85, 0, 1)
-    love.graphics.circle("fill", player.x, player.y, 20)
+    if player.x and player.y then
+        love.graphics.circle("fill", player.x, player.y, 20)
+    end
     if gStateMachine.DEBUG then
         love.graphics.setColor(0, 1, 0, 1)
         love.graphics.line(player.x, player.y, player.x + endX / 15, player.y + endY / 15)

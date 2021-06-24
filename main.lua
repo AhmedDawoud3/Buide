@@ -3,7 +3,10 @@ require 'src.Dependencies'
 fonts = {
     ['Regular13'] = love.graphics.newFont('fonts/MontserratRegular.ttf', 13),
     ['Bold16'] = love.graphics.newFont('fonts/MontserratBold.ttf', 16),
-    ['Bold32'] = love.graphics.newFont('fonts/MontserratBold.ttf', 32)
+    ['Bold32'] = love.graphics.newFont('fonts/MontserratBold.ttf', 32),
+    ['Semibold40'] = love.graphics.newFont('fonts/MontserratSemibold.ttf', 40),
+    ['ExtraBold100'] = love.graphics.newFont('fonts/MontserratExtrabold.ttf', 100),
+    ['ExtraBoldItalic100'] = love.graphics.newFont('fonts/MontserratExtraboldItalic.ttf', 100)
 }
 
 function love.load()
@@ -17,9 +20,13 @@ function love.load()
     gStateMachine = StateMachine {
         ['play'] = function()
             return PlayState()
-        end
+        end,
+        ['start'] = function()
+            return StartState()
+        end,
+        
     }
-    gStateMachine:change('play')
+    gStateMachine:change('start')
 
     -- a table we'll use to keep track of which keys have been pressed this
     -- frame, to get around the fact that Love's default callback won't let us

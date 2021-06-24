@@ -12,6 +12,9 @@ Class = require 'lib/class'
 -- Vector Libirary Will Enable us to use 2d vectors
 Vector = require 'lib/vector'
 
+-- Suit Libirary (UI)
+Suit = require 'lib/suit'
+
 -- Constants (eg. Window Width and Height)
 require 'src/CONSTANTS'
 
@@ -25,3 +28,4 @@ require 'src/MouseHandler'
 -- State
 require 'src/States/BaseState'
 require 'src/States/PlayState'
+require 'src/States/StartState'
