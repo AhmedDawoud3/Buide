@@ -12,16 +12,18 @@ function MouseHandler:update(dt)
     self.pos = Vector(push:toGame(love.mouse.getPosition()))
     self.body = love.physics.newBody(world, self.pos.x, self.pos.y, 'dynamic')
 
-    if love.mouse.wasPressed(1) then
+    if not playing then
+        self:Cancel()
+    end
+    if love.mouse.wasPressed(1) and playing then
         self.tempRect.st = self.pos
         self.tempRect.en = Vector(10, 10)
         self.isDown = true
     end
     if love.mouse.wasPressed(2) and self.isDown then
-        self.isDown = false
-        self.tempRect.en = self.tempRect.st
+        self:Cancel()
     end
-    if self.isDown then
+    if self.isDown and playing then
         self.tempRect.en = self.pos
     end
     if love.mouse.wasReleased(1) and self.isDown then
@@ -55,6 +57,11 @@ function MouseHandler:render()
             end
         end
     end
+end
+
+function MouseHandler:Cancel()
+    self.isDown = false
+    self.tempRect.en = self.tempRect.st
 end
 
 function MouseHandler:CheckCollisionWithCBoxes()
