@@ -26,20 +26,23 @@ function StartState:update(dt)
     }, Window.width / 2 - 120, Window.height / 2 + 30, 240, 60).hit then
         gStateMachine:change('play')
     end
+
     if self.suit:Button('Exit', {
         font = fonts['Semibold40']
     }, Window.width / 2 - 120, Window.height / 2 + 150, 240, 60).hit then
         love.event.quit()
     end
+
     if self.suit:Button('Options', {
         font = fonts['Semibold40']
-    }, 20, Window.height - 100, 240, 60).hit then
+    }, 50, 600, 240, 60).hit then
         print("Options (TODO)")
     end
+
     if self.suit:Button('About', {
         font = fonts['Semibold40']
-    }, Window.width - 240 - 20, Window.height - 100, 240, 60).hit then
-        print("About (TODO)")
+    }, Window.width - 240 - 50, 600, 240, 60).hit then
+        gStateMachine:change('about')
     end
 end
 

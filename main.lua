@@ -6,7 +6,8 @@ fonts = {
     ['Bold32'] = love.graphics.newFont('fonts/MontserratBold.ttf', 32),
     ['Semibold40'] = love.graphics.newFont('fonts/MontserratSemibold.ttf', 40),
     ['ExtraBold100'] = love.graphics.newFont('fonts/MontserratExtrabold.ttf', 100),
-    ['ExtraBoldItalic100'] = love.graphics.newFont('fonts/MontserratExtraboldItalic.ttf', 100)
+    ['ExtraBoldItalic100'] = love.graphics.newFont('fonts/MontserratExtraboldItalic.ttf', 100),
+    ['ExtraBoldItalic60'] = love.graphics.newFont('fonts/MontserratExtraboldItalic.ttf', 60)
 }
 
 function love.load()
@@ -23,6 +24,9 @@ function love.load()
         end,
         ['start'] = function()
             return StartState()
+        end,
+        ['about'] = function()
+            return AboutState()
         end,
         
     }
