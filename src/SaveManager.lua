@@ -11,6 +11,9 @@ function LoadSaveFile()
         if data.BallTrail == nil then
             data.BallTrail = DefaultDate.BallTrail
         end
+        if data.FullScreen == nil then
+            data.FullScreen = DefaultDate.FullScreen
+        end
         return data
     end
     return DefaultDate

@@ -14,9 +14,10 @@ fonts = {
 
 function love.load()
     love.window.setTitle("Buide")
+    options = LoadSaveFile()
     math.randomseed(os.time())
     push:setupScreen(Window.width, Window.height, Window.width, Window.height, {
-        fullscreen = false,
+        fullscreen = options.FullScreen,
         resizable = true,
         vsync = true
     })
@@ -44,7 +45,6 @@ function love.load()
     love.mouse.keysPressed = {}
     love.mouse.keysReleased = {}
     -- SaveGame()
-    options = LoadSaveFile()
 end
 
 function love.update(dt)

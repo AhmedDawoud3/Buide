@@ -12,6 +12,9 @@ function OptionsState:enter(params)
     settingsOption = {
         BallTrail = {
             checked = options.BallTrail
+        },
+        FullScreen = {
+            checked = options.FullScreen
         }
     }
 end
@@ -37,6 +40,24 @@ function OptionsState:update(dt)
     }, Window.width / 2 + 69.42 - 25, 295, 50, 50).hit then
         NextBallColor()
     end
+
+    if self.suit:Checkbox(settingsOption.FullScreen, 1038, 130, 50, 39).hit then
+        options.FullScreen = settingsOption.FullScreen.checked
+        if options.FullScreen then
+            push:setupScreen(Window.width, Window.height, Window.width, Window.height, {
+                fullscreen = true,
+                resizable = false,
+                vsync = true
+            })
+        else
+            push:setupScreen(Window.width, Window.height, Window.width, Window.height, {
+                fullscreen = false,
+                resizable = true,
+                vsync = true
+            })
+        end
+    end
+
 end
 
 function OptionsState:render()
@@ -75,16 +96,31 @@ function OptionsState:render()
     love.graphics.printf("Ball Colour", 0, 130, Window.width, 'center')
 
     -- Description
+    love.graphics.setColor(options.BallColor[1], options.BallColor[2], options.BallColor[3])
     love.graphics.setFont(fonts['Regular13'])
     love.graphics.printf("Change The Colour of the ball", 0, 170, Window.width, 'center')
 
     -- Colour Representation
-    love.graphics.setColor(options.BallColor[1], options.BallColor[2], options.BallColor[3])
     love.graphics.circle('fill', Window.width / 2, 245, 40)
+    love.graphics.setColor(1, 1, 1, 1)
+
+    --[[
+        Full Screen
+    ]]
+    -- Big Rectangle
+    love.graphics.rectangle('line', 817, 113, 287, 71, 13, 13)
+
+    -- The Word "Full Screen" 
+    love.graphics.setFont(fonts['Bold32'])
+    love.graphics.print("Full Screen", 833, 130)
+
+    -- Description
+    love.graphics.setFont(fonts['Regular13'])
+    love.graphics.printf("Change The Colour of the ball", 0, 170, Window.width, 'center')
 
     -- IMGUI
     love.graphics.setColor(1, 1, 1, 1)
-    xx = imgui.SliderFloat("X", xx, 0.0, 500);
+    xx = imgui.SliderFloat("X", xx, 0.0, 1280);
     yy = imgui.SliderFloat("Y", yy, 0.0, 500);
     ww = imgui.SliderFloat("Width", ww, 0.0, 500);
     hh = imgui.SliderFloat("Height", hh, 0.0, 500);
