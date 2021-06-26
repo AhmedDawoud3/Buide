@@ -25,8 +25,12 @@ require 'src/EffectManager'
 
 require 'src/MouseHandler'
 
+-- SaveManager
+require 'src/SaveManager'
+
 -- State
 require 'src/States/BaseState'
 require 'src/States/PlayState'
 require 'src/States/StartState'
 require 'src/States/AboutState'
+require 'src/States/OptionsState'

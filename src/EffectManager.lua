@@ -44,7 +44,7 @@ function EffectManager:draw()
 
             local d = 25
             for j = 1, d - 1 do
-                love.graphics.setColor(1, 1, 0, 0.02)
+                love.graphics.setColor(options.BallColor[1], options.BallColor[2], options.BallColor[3], 0.02)
                 love.graphics.circle('fill', pos.x - posDelta.x / d * j, pos.y - posDelta.y / d * j, i)
             end
         end

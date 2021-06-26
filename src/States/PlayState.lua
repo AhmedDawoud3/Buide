@@ -5,6 +5,8 @@ PlayState = Class {
 }
 
 function PlayState:enter(params)
+    self.ballTrail = options.BallTrail
+    self.ballColor = options.BallColor
     player = {}
     edges = {}
     boxes = {}
@@ -43,7 +45,9 @@ function PlayState:update(dt)
     -- update world, calculating collisions
     if dt < 0.04 then
         world:update(dt)
-        e:update(dt)
+        if self.ballTrail then
+            e:update(dt)
+        end
         mouseHandler:update(dt)
     end
 
@@ -51,6 +55,8 @@ function PlayState:update(dt)
         ClearAllCustomBoxes()
     elseif love.keyboard.wasPressed('r') then
         Restart()
+    elseif love.keyboard.wasPressed('f12') then
+        love.graphics.captureScreenshot(os.time() .. '.png')
     elseif love.keyboard.isDown('lctrl') and love.keyboard.wasPressed('z') then
         CleareLastCustomBox()
     end
@@ -68,9 +74,11 @@ end
 
 function PlayState:render()
     love.graphics.clear(0.16, 0.19, 0.2, 1)
-    e:draw()
+    if self.ballTrail then
+        e:draw()
+    end
     local endX, endY = player.body:getLinearVelocity()
-    love.graphics.setColor(0.99, 0.85, 0, 1)
+    love.graphics.setColor(self.ballColor[1], self.ballColor[2], self.ballColor[3], 1)
     if player.x and player.y then
         love.graphics.circle("fill", player.x, player.y, 20)
     end

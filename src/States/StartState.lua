@@ -36,7 +36,7 @@ function StartState:update(dt)
     if self.suit:Button('Options', {
         font = fonts['Semibold40']
     }, 50, 600, 240, 60).hit then
-        print("Options (TODO)")
+        gStateMachine:change('options')
     end
 
     if self.suit:Button('About', {

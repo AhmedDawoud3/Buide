@@ -1,10 +1,12 @@
 require 'src.Dependencies'
+require "imgui"
 
 fonts = {
     ['Regular13'] = love.graphics.newFont('fonts/MontserratRegular.ttf', 13),
     ['Bold16'] = love.graphics.newFont('fonts/MontserratBold.ttf', 16),
     ['Bold32'] = love.graphics.newFont('fonts/MontserratBold.ttf', 32),
     ['Semibold40'] = love.graphics.newFont('fonts/MontserratSemibold.ttf', 40),
+    ['ExtraBold60'] = love.graphics.newFont('fonts/MontserratExtrabold.ttf', 60),
     ['ExtraBold100'] = love.graphics.newFont('fonts/MontserratExtrabold.ttf', 100),
     ['ExtraBoldItalic100'] = love.graphics.newFont('fonts/MontserratExtraboldItalic.ttf', 100),
     ['ExtraBoldItalic60'] = love.graphics.newFont('fonts/MontserratExtraboldItalic.ttf', 60)
@@ -28,7 +30,10 @@ function love.load()
         ['about'] = function()
             return AboutState()
         end,
-        
+        ['options'] = function()
+            return OptionsState()
+        end
+
     }
     gStateMachine:change('start')
 
@@ -38,6 +43,8 @@ function love.load()
     love.keyboard.keysPressed = {}
     love.mouse.keysPressed = {}
     love.mouse.keysReleased = {}
+    -- SaveGame()
+    options = LoadSaveFile()
 end
 
 function love.update(dt)
@@ -48,6 +55,7 @@ function love.update(dt)
     love.keyboard.keysPressed = {}
     love.mouse.keysPressed = {}
     love.mouse.keysReleased = {}
+    imgui.NewFrame()
 end
 
 function love.draw()
@@ -61,7 +69,6 @@ function love.resize(w, h)
     push:resize(w, h)
 end
 
-
 -- HANDLING KEY PRESSING 
 --[[
     A callback that processes key strokes as they happen, just the once.
@@ -72,6 +79,10 @@ end
 function love.keypressed(key)
     -- add to our table of keys pressed this frame
     love.keyboard.keysPressed[key] = true
+    imgui.KeyPressed(key)
+    if not imgui.GetWantCaptureKeyboard() then
+        -- Pass event to the game
+    end
 end
 
 --[[
@@ -82,10 +93,18 @@ end
 
 function love.mousepressed(x, y, key)
     love.mouse.keysPressed[key] = true
+    imgui.MousePressed(key)
+    if not imgui.GetWantCaptureMouse() then
+        -- Pass event to the game
+    end
 end
 
 function love.mousereleased(x, y, key)
     love.mouse.keysReleased[key] = true
+    imgui.MouseReleased(key)
+    if not imgui.GetWantCaptureMouse() then
+        -- Pass event to the game
+    end
 end
 
 function love.keyboard.wasPressed(key)
@@ -98,6 +117,38 @@ end
 
 function love.mouse.wasReleased(key)
     return love.mouse.keysReleased[key]
+end
+
+function love.quit()
+    imgui.ShutDown();
+end
+
+function love.textinput(t)
+    imgui.TextInput(t)
+    if not imgui.GetWantCaptureKeyboard() then
+        -- Pass event to the game
+    end
+end
+
+function love.keyreleased(key)
+    imgui.KeyReleased(key)
+    if not imgui.GetWantCaptureKeyboard() then
+        -- Pass event to the game
+    end
+end
+
+function love.mousemoved(x, y)
+    imgui.MouseMoved(x, y)
+    if not imgui.GetWantCaptureMouse() then
+        -- Pass event to the game
+    end
+end
+
+function love.wheelmoved(x, y)
+    imgui.WheelMoved(y)
+    if not imgui.GetWantCaptureMouse() then
+        -- Pass event to the game
+    end
 end
 
 function DisplayFPS()
