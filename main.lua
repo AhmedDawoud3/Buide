@@ -5,6 +5,8 @@ fonts = {
     ['Regular13'] = love.graphics.newFont('fonts/MontserratRegular.ttf', 13),
     ['Bold16'] = love.graphics.newFont('fonts/MontserratBold.ttf', 16),
     ['Bold32'] = love.graphics.newFont('fonts/MontserratBold.ttf', 32),
+    ['Medium40'] = love.graphics.newFont('fonts/MontserratMedium.ttf', 40),
+    ['Medium20'] = love.graphics.newFont('fonts/MontserratMedium.ttf', 20),
     ['Semibold40'] = love.graphics.newFont('fonts/MontserratSemibold.ttf', 40),
     ['ExtraBold60'] = love.graphics.newFont('fonts/MontserratExtrabold.ttf', 60),
     ['ExtraBold100'] = love.graphics.newFont('fonts/MontserratExtrabold.ttf', 100),
@@ -33,6 +35,9 @@ function love.load()
         end,
         ['options'] = function()
             return OptionsState()
+        end,
+        ['levelSelect'] = function()
+            return LevelSelect()
         end
 
     }
@@ -51,10 +56,6 @@ function love.update(dt)
     -- we pass in dt to the state object we're currently using
     gStateMachine:update(dt)
 
-    -- reset keys pressed
-    love.keyboard.keysPressed = {}
-    love.mouse.keysPressed = {}
-    love.mouse.keysReleased = {}
     imgui.NewFrame()
 end
 
@@ -63,6 +64,11 @@ function love.draw()
     gStateMachine:render()
     DisplayFPS()
     push:apply('end')
+    
+    -- reset keys pressed
+    love.keyboard.keysPressed = {}
+    love.mouse.keysPressed = {}
+    love.mouse.keysReleased = {}
 end
 
 function love.resize(w, h)

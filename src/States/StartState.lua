@@ -24,7 +24,7 @@ function StartState:update(dt)
     if self.suit:Button('Play', {
         font = fonts['Semibold40']
     }, Window.width / 2 - 120, Window.height / 2 + 30, 240, 60).hit then
-        gStateMachine:change('play')
+        gStateMachine:change('levelSelect')
     end
 
     if self.suit:Button('Exit', {

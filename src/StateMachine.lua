@@ -10,6 +10,8 @@ function StateMachine:init(states)
 	self.states = states or {} -- [name] -> [function that returns states]
 	self.current = self.empty
 	self.timer = 0
+	self.LevelManager = LevelManager(
+	)
 end
 
 function StateMachine:change(stateName, enterParams)

@@ -28,9 +28,18 @@ require 'src/MouseHandler'
 -- SaveManager
 require 'src/SaveManager'
 
+-- Level Manager
+require 'src/Levels/LevelManager'
+
+-- Levels
+require 'src/Levels/BaseLevel'
+require 'src/Levels/Level1'
+require 'src/Levels/Level2'
+
 -- State
 require 'src/States/BaseState'
 require 'src/States/PlayState'
 require 'src/States/StartState'
 require 'src/States/AboutState'
 require 'src/States/OptionsState'
+require 'src/States/LevelSelect'

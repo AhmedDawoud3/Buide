@@ -4,8 +4,8 @@ OptionsState = Class {
 
 local xx, yy, ww, hh, rr = 0, 0, 0, 0, 0
 
-noTrailImage = love.graphics.newImage('assests/images/noTrail.png')
-TrailImage = love.graphics.newImage('assests/images/trail.png')
+local noTrailImage = love.graphics.newImage('assets/images/noTrail.png')
+local TrailImage = love.graphics.newImage('assets/images/trail.png')
 
 function OptionsState:enter(params)
     self.suit = Suit.new()
@@ -124,7 +124,7 @@ function OptionsState:render()
     yy = imgui.SliderFloat("Y", yy, 0.0, 500);
     ww = imgui.SliderFloat("Width", ww, 0.0, 500);
     hh = imgui.SliderFloat("Height", hh, 0.0, 500);
-    rr = imgui.SliderFloat("Round Edge", rr, 0.0, 30);
+    rr = imgui.SliderFloat("Round Edge", rr, 0.0, 100);
     -- imgui.Render();
 end
 

@@ -8,14 +8,13 @@ function MouseHandler:init()
     self.tempRect = {}
 end
 
-function MouseHandler:update(dt)
+function MouseHandler:update(dt, level)
     self.pos = Vector(push:toGame(love.mouse.getPosition()))
-    self.body = love.physics.newBody(world, self.pos.x, self.pos.y, 'dynamic')
 
-    if not playing then
+    if not level.playing then
         self:Cancel()
     end
-    if love.mouse.wasPressed(1) and playing then
+    if love.mouse.wasPressed(1) and level.playing then
         self.tempRect.st = self.pos
         self.tempRect.en = Vector(10, 10)
         self.isDown = true
@@ -23,20 +22,20 @@ function MouseHandler:update(dt)
     if love.mouse.wasPressed(2) and self.isDown then
         self:Cancel()
     end
-    if self.isDown and playing then
+    if self.isDown and level.playing then
         self.tempRect.en = self.pos
     end
     if love.mouse.wasReleased(1) and self.isDown then
-        self:AddToGame()
+        self:AddToGame(level)
     end
 
     if love.mouse.wasReleased(2) and not self.isDown then
-        self:CheckCollisionWithCBoxes()
+        self:CheckCollisionWithCBoxes(level)
     end
 
 end
 
-function MouseHandler:render()
+function MouseHandler:render(level)
     love.graphics.setColor(1, 1, 1, 1)
     if love.mouse.isDown(1) then
         if math.sqrt((self.tempRect.st.x - self.tempRect.en.x) ^ 2 + (self.tempRect.st.y - self.tempRect.en.y) ^ 2) > 20 then
@@ -51,7 +50,7 @@ function MouseHandler:render()
         love.graphics.setLineWidth(1)
     end
     if love.mouse.isDown(2) and not self.isDown then
-        for i, v in ipairs(cBoxes) do
+        for i, v in ipairs(level.cBoxes) do
             if CheckMouseCollisionWithRectangle(self.pos, v[1], v[2], true) then
                 break
             end
@@ -64,14 +63,14 @@ function MouseHandler:Cancel()
     self.tempRect.en = self.tempRect.st
 end
 
-function MouseHandler:CheckCollisionWithCBoxes()
-    if #cBoxes > 0 then
-        for i = #cBoxes, 1, -1 do
-            local v = cBoxes[i]
+function MouseHandler:CheckCollisionWithCBoxes(level)
+    if #level.cBoxes > 0 then
+        for i = #level.cBoxes, 1, -1 do
+            local v = level.cBoxes[i]
             local x, y = v[1]:getPosition()
             if CheckMouseCollisionWithRectangle(self.pos, v[1], v[2]) then
                 v[3]:destroy()
-                table.remove(cBoxes, i)
+                table.remove(level.cBoxes, i)
                 break
             end
         end
@@ -120,7 +119,7 @@ function CheckMouseCollisionWithRectangle(mousePos, body, shape, DRAW)
     return false
 end
 
-function MouseHandler:AddToGame()
+function MouseHandler:AddToGame(level)
     local x = (self.tempRect.st.x + self.tempRect.en.x) / 2
     local y = (self.tempRect.st.y + self.tempRect.en.y) / 2
     local height = 10
@@ -129,7 +128,7 @@ function MouseHandler:AddToGame()
     local rotation = getAngle(self.tempRect.st.x, self.tempRect.st.y, self.tempRect.en.x, self.tempRect.en.y)
 
     if size > 20 then
-        CreateCustomRectangle(x, y, size, height, rotation * (180 / 3.14159265))
+        level:CreateCustomRectangle(x, y, size, height, rotation * (180 / 3.14159265))
     end
     self.isDown = false
 end

@@ -5,10 +5,10 @@ function EffectManager:init()
     self.trailLength = 20
 end
 
-function EffectManager:update(dt)
+function EffectManager:update(dt, level)
     local trail, trailLength = self.trail, self.trailLength
     if #trail < trailLength then
-        local x, y = player.body:getPosition()
+        local x, y = level.player.body:getPosition()
 
         trail[#trail + 1] = {
             x = x,
@@ -20,7 +20,7 @@ function EffectManager:update(dt)
             trail[i] = trail[i + 1]
         end
 
-        local x, y = player.body:getPosition()
+        local x, y = level.player.body:getPosition()
         trail[trailLength] = {
             x = x,
             y = y
