@@ -1,6 +1,8 @@
 LevelSelect = Class {
     __includes = BaseState
 }
+local Timer = require "lib.knife.timer"
+local Easing = require 'lib.easing'
 
 local pages = {{
     active = true,
@@ -11,11 +13,19 @@ local pages = {{
         highScore = 99.99,
         selected = false
     }, false, false, false, false}
+}, {
+    active = false,
+    levels = {false, false, false, false, false, false}
 }}
 
 local xx, yy, ww, hh, rr, xO, yO = 0, 0, 0, 0, 0, 0, 0
 
 demoImage = love.graphics.newImage('assets/images/Levels/Demo.png')
+
+local levelsOffset = {
+    value = 0,
+    dx = 0
+}
 
 function LevelSelect:enter()
     self.suit = Suit.new()
@@ -31,6 +41,9 @@ function LevelSelect:enter()
 end
 
 function LevelSelect:update(dt)
+    levelsOffset.value = levelsOffset.value + levelsOffset.dx
+    Timer.update(dt)
+
     if self.suit:Button('Back', {
         font = fonts['Semibold40']
     }, 50, 600, 240, 60).hit or love.keyboard.wasPressed('escape') then
@@ -72,24 +85,23 @@ function LevelSelect:update(dt)
         })
     end
 
-    if self.suit:Button('<', {
-        font = fonts['Semibold40']
-    }, Window.width / 2 - 134 - 48 / 2, 608, 48, 48).hit or love.keyboard.wasPressed('escape') then
-        -- TODO: Change PAGE
-    end
     if self.suit:Button('>', {
         font = fonts['Semibold40'],
-        cornerRadius = 30
+        cornerRadius = 30,
+        active = false
     }, Window.width / 2 + 134 - 48 / 2, 608, 48, 48).hit or love.keyboard.wasPressed('escape') then
-        -- TODO: Change PAGE
+        self:NextPage()
+    end
+    if self.suit:Button('<', {
+        font = fonts['Semibold40'],
+        cornerRadius = 30
+    }, Window.width / 2 - 134 - 48 / 2, 608, 48, 48).hit or love.keyboard.wasPressed('escape') then
+        self:PreviousPage()
     end
 end
 
 function LevelSelect:render()
     love.graphics.clear(0.1, 0.12, 0.15)
-
-    -- Check if the number of pages is odd or even (For allignments)
-    local OddPage = #pages % 2 ~= 0
 
     -- Draw Current Page
     for i, v in ipairs(pages) do
@@ -98,12 +110,10 @@ function LevelSelect:render()
         else
             love.graphics.setColor(0.25, 0.27, 0.3, 1)
         end
-        if OddPage then
-            love.graphics.circle('fill', Window.width / 2 + (math.floor(#pages / 2) + 1 - i) * 27, 633, 8.764)
-        else
-            -- TODO: Allignments for even page count 
-        end
+        love.graphics.circle('fill', Window.width / 2 - (math.floor(#pages / 2) + 1 - i) * 27, 633, 8.764)
     end
+
+    love.graphics.translate(levelsOffset.value, 0)
 
     for i, v in ipairs(self.activePage.levels) do
         love.graphics.setLineWidth(5)
@@ -127,28 +137,29 @@ function LevelSelect:render()
                 cornerRadius = 30,
                 draw = function()
                     love.graphics.setColor(1, 1, 1, 1)
-                    love.graphics.draw(demoImage, (i - 1) % 3 * 412 + 110 + 22,
+                    love.graphics.draw(demoImage, levelsOffset.value + (i - 1) % 3 * 412 + 110 + 22,
                         math.floor(i / 4) * (245 + 21) + 15 + 105 + 37, 0, 0.123, 0.123)
                 end
-            }, (i - 1) % 3 * 412 + 110, math.floor(i / 4) * (245 + 21) + 15 + 105, 239, 200).hovered then
+            }, levelsOffset.value + (i - 1) % 3 * 412 + 110, math.floor(i / 4) * (245 + 21) + 15 + 105, 239, 200)
+                .hovered then
                 love.graphics.setColor(1, 1, 1, 0.5)
                 love.graphics.rectangle('fill', 0, 0, 239, 200, 42, 42)
                 love.graphics.setColor(1, 1, 1, 1)
                 if love.mouse.wasReleased(1) then
-                    print("Entering Level " .. i)
-                    self.selectedLevel = i
+                    self.selectedLevel = i * self.pageIndex
                     self:SelectLevel(v)
                 end
             end
         end
         love.graphics.translate(-((i - 1) % 3 * 412 + 110), -(math.floor(i / 4) * (245 + 21) + 15 + 105))
     end
+    love.graphics.translate(-levelsOffset.value, 0)
     self.suit:draw()
 
     love.graphics.setColor(1, 1, 1, 1)
     xx = imgui.SliderFloat("X", xx, 0.0, 200);
-    xO = imgui.SliderFloat("X Offset", xO, 0.0, 200);
-    yy = imgui.SliderFloat("Y", yy, -50, 200);
+    levelsOffset.value = imgui.SliderFloat("X Offset", levelsOffset.value, -1280, 1280);
+    levelsOffset.dx = imgui.SliderFloat("Y", levelsOffset.dx, -50, 50);
     yO = imgui.SliderFloat("Y Offset", yO, 0, 200);
     ww = imgui.SliderFloat("Width", ww, 0.0, 500);
     hh = imgui.SliderFloat("Height", hh, 0.0, 500);
@@ -157,11 +168,19 @@ function LevelSelect:render()
 end
 
 function LevelSelect:exit()
+    Timer.clear()
+    levelsOffset.value = 0
     for i, v in ipairs(self.activePage.levels) do
         if v then
             v.selected = false
         end
     end
+    self.pageIndex = 1
+    self.selectedLevel = nil
+    for i, v in ipairs(pages) do
+        v.active = false
+    end
+    pages[1].active = true
 end
 
 function LevelSelect:SelectLevel(level)
@@ -173,27 +192,51 @@ function LevelSelect:SelectLevel(level)
     level.selected = true
 end
 
-function bitand(a, b)
-    local result = 0
-    local bitval = 1
-    while a > 0 and b > 0 do
-        if a % 2 == 1 and b % 2 == 1 then -- test the rightmost bits
-            result = result + bitval -- set the current bit
-        end
-        bitval = bitval * 2 -- shift left
-        a = math.floor(a / 2) -- shift right
-        b = math.floor(b / 2)
+function LevelSelect:NextPage()
+    -- Timer.clear()
+    if levelsOffset.value == 0 and self.pageIndex ~= #pages then
+        Timer.tween(0.5, {
+            [levelsOffset] = {
+                value = 1180
+            }
+        }):ease(Easing.inCubic):finish(function()
+            levelsOffset.value = -1180
+            pages[self.pageIndex].active = false
+            if self.pageIndex ~= #pages then
+                self.pageIndex = self.pageIndex + 1
+                self.activePage = pages[self.pageIndex]
+                pages[self.pageIndex].active = true
+            end
+            Timer.tween(0.5, {
+                [levelsOffset] = {
+                    value = 0
+                }
+            }):ease(Easing.outCubic)
+        end)
     end
-    return result
 end
 
-OR, XOR, AND = 1, 3, 4
-
-function bitoper(a, b, oper)
-    local r, m, s = 0, 2 ^ 31
-    repeat
-        s, a, b = a + b + m, a % m, b % m
-        r, m = r + m * oper % (s - a - b), m / 2
-    until m < 1
-    return r
+function LevelSelect:PreviousPage()
+    -- Timer.clear()
+    if levelsOffset.value == 0 and self.pageIndex ~= 1 then
+        Timer.tween(0.5, {
+            [levelsOffset] = {
+                value = -1180
+            }
+        }):ease(Easing.inCubic):finish(function()
+            levelsOffset.value = 1180
+            pages[self.pageIndex].active = false
+            if self.pageIndex ~= 1 then
+                self.pageIndex = self.pageIndex - 1
+                self.activePage = pages[self.pageIndex]
+                pages[self.pageIndex].active = true
+            end
+            Timer.tween(0.5, {
+                [levelsOffset] = {
+                    value = 0
+                }
+            }):ease(Easing.outCubic)
+        end)
+    end
 end
+
