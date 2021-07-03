@@ -1,6 +1,8 @@
 # Buide   [![wakatime](https://wakatime.com/badge/github/AhmedDawoud3/Buide.svg)](https://wakatime.com/badge/github/AhmedDawoud3/Buide)
 Simple Game with Love2D
 
+The goal of the game is to bounce the ball into the gate as fast as possible
+
 ---
 ## Installation
 First install [LÖVE](https://love2d.org/) if you haven't already
@@ -14,10 +16,17 @@ sudo apt install love
 ```
 ---
 
-### Then you can run love with the project folder
+### Download LOVE-IMGUI
+* Download [imgui.dll](https://github.com/slages/love-imgui/releases/download/master-latest/imgui.dll)
+* Place it in LÖVE's directory; Default in *Windows* is ```C:\Program Files\LOVE ```
+
+### Run The Game
 ```bash
 love /path/to/project/folder/
 ```
+#### or
+
+**Drag and drop the repository folder into love icon**
 
 ---
 
