@@ -137,8 +137,8 @@ function LevelSelect:render()
                 cornerRadius = 30,
                 draw = function()
                     love.graphics.setColor(1, 1, 1, 1)
-                    love.graphics.draw(demoImage, levelsOffset.value + (i - 1) % 3 * 412 + 110 + 22,
-                        math.floor(i / 4) * (245 + 21) + 15 + 105 + 37, 0, 0.123, 0.123)
+                    love.graphics.draw(levelsImages[i] or demoImage, levelsOffset.value + (i - 1) % 3 * 412 + 110 + 16,
+                        math.floor(i / 4) * 261 +  147, 0, 0.101599, 0.101599)
                 end
             }, levelsOffset.value + (i - 1) % 3 * 412 + 110, math.floor(i / 4) * (245 + 21) + 15 + 105, 239, 200)
                 .hovered then
@@ -158,13 +158,14 @@ function LevelSelect:render()
 
     love.graphics.setColor(1, 1, 1, 1)
     xx = imgui.SliderFloat("X", xx, 0.0, 200);
-    levelsOffset.value = imgui.SliderFloat("X Offset", levelsOffset.value, -1280, 1280);
-    levelsOffset.dx = imgui.SliderFloat("Y", levelsOffset.dx, -50, 50);
+    levelsOffset.value = imgui.SliderFloat("levelsOffset Value", levelsOffset.value, -1280, 1280);
+    levelsOffset.dx = imgui.SliderFloat("levelsOffset DX", levelsOffset.dx, -50, 50);
+    yy = imgui.SliderFloat("Y", yy, 0.0, 200);
     yO = imgui.SliderFloat("Y Offset", yO, 0, 200);
-    ww = imgui.SliderFloat("Width", ww, 0.0, 500);
-    hh = imgui.SliderFloat("Height", hh, 0.0, 500);
+    ww = imgui.SliderFloat("Width", ww, 0.0, 1);
+    hh = imgui.SliderFloat("Height", hh, 0.0, 1);
     rr = imgui.SliderFloat("Round Edge", rr, 0, 0.183);
-    -- imgui.Render();
+    imgui.Render();
 end
 
 function LevelSelect:exit()

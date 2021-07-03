@@ -14,6 +14,11 @@ fonts = {
     ['ExtraBoldItalic60'] = love.graphics.newFont('fonts/MontserratExtraboldItalic.ttf', 60)
 }
 
+levelsImages = {
+    love.graphics.newImage('assets/images/Levels/1.png'),
+    love.graphics.newImage('assets/images/Levels/2.png')
+}
+
 function love.load()
     love.window.setTitle("Buide")
     options = LoadSaveFile()
