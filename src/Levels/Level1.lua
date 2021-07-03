@@ -2,6 +2,8 @@ Level1 = Class {
     __includes = BaseLevel
 }
 
+local xx, yy, ww, hh, rr, xO, yO = 0, 0, 0, 0, 0, 0, 0
+
 function Level1:enter()
     self.world = love.physics.newWorld(0, 1500)
     self.player = {}
@@ -12,33 +14,108 @@ function Level1:enter()
     self.edges = {}
     self.boxes = {}
     self.cBoxes = {}
+    self.Circles = {}
+    self.Polygons = {}
     self.e = EffectManager()
     self.mouseHandler = MouseHandler()
     self.playing = true
     self.timer = 0
-    self.originalPlayerX, self.originalPlayerY = 100, 100
+    self.originalPlayerX, self.originalPlayerY = 1138, 82
     self.player.body:setPosition(self.originalPlayerX, self.originalPlayerY)
 
-    self:CreateFullEdge('left')
-    self:CreateFullEdge('upper')
-    self:CreateFullEdge('right')
+    self:CreateRectangle(667, 0, 488, 15)
 
-    self:CreateRectangle(Window.width - 90, Window.height - 100, 120, 10, -35)
-    self:CreateRectangle(800, 400, 260, 10, 12.25)
-    self:CreateRectangle(10, 580, 280, 10, 45)
-    self:CreateDownOpening(Window.width / 2, 100)
+    self:CreateRectangle(901, 223, 186, 107, 12)
+
+    self:CreateCircle(360, 150, 72)
+
+    self:CreatePoly({888, 370, 930, 330, 995, 388, 892, 462})
+
+    self:CreateRectangle(1170, 32, 217, 11)
+
+    self:CreatePoly({1160, 161, 1261, 40, 1280, 40, 1280, 157})
+
+    self:CreatePoly({1160, 161, 1261, 40, 1280, 40, 1280, 161})
+
+    self:CreatePoly({1160, 161, 1280, 161, 1280, 347})
+
+    -- Create The Complex Shape
+    self:CreatePoly({1199.5, 601, 1218.5, 648, 1195, 647.5, 1176.5, 627})
+    self:CreatePoly({1218.5, 648, 1278, 690.5, 1211, 690.5})
+    self:CreatePoly({1169.5, 505, 1230.5, 444, 1205.5, 576, 1172, 564.5})
+    self:CreatePoly({1185.5, 383, 1233, 376.5, 1187, 396.5})
+    self:CreatePoly({1146.5, 334, 1146.5, 332, 1188, 292.5, 1279.5, 337, 1233, 376.5, 1185.5, 383})
+    self:CreatePoly({1199.5, 601, 1205.5, 576, 1278, 690.5, 1218.5, 648})
+    self:CreatePoly({1230.5, 444, 1278, 690.5, 1205.5, 576})
+    self:CreatePoly({1194.5, 227, 1188, 292.5, 1190.5, 223, 1194.5, 226})
+    self:CreatePoly({1279.5, 337, 1188, 292.5, 1194.5, 227})
+    self:CreatePoly({1234.5, 377, 1279.5, 337, 1279.5, 690, 1278, 690.5, 1230.5, 444})
+    self:CreatePoly({1279.5, 337, 1234.5, 377, 1233, 376.5})
+    self:CreatePoly({266.5, 535, 405.5, 504, 318, 559.5, 252, 551.5})
+
+    -- Create The Complex Shape 
+    self:CreatePoly({374, 388.5, 256, 480.5, 198, 463.5, 195.5, 461, 263, 395.5})
+    self:CreatePoly({405.5, 504, 266.5, 535, 265.5, 534, 294.5, 480, 407, 471.5})
+    self:CreatePoly({294.5, 480, 259, 482.5, 374, 388.5, 375, 388.5, 381, 389.5})
+    self:CreatePoly({179, 499.5, 259, 482.5, 294.5, 480, 265.5, 534, 177, 501.5})
+    self:CreatePoly({374, 388.5, 259, 482.5, 256, 480.5})
+
+    -- Create The Complex Shape 
+    self:CreatePoly({222.5, 302, 218.5, 295, 272, 245.5, 275, 244.5, 276, 244.5, 345.5, 280, 303, 317.5, 246, 330.5})
+    self:CreatePoly({343.5, 275, 345.5, 280, 276, 244.5, 326, 251.5})
+
+    -- Create The Complex Shape 
+    self:CreatePoly({71.5, 233, 100.5, 193, 93.5, 251, 90, 252.5, 72, 253.5})
+    self:CreatePoly({72.5, 369, 37, 346.5, 77, 315.5, 94.5, 341})
+    self:CreatePoly({47.5, 157, 21.5, 105, 47, 105.5})
+    self:CreatePoly({21.5, 105, 2, -0.5, 26, -0.5})
+    self:CreatePoly({2, -0.5, 35.5, 346, 0, 556.5, -0.5, 555, -0.5, 0, 1, -0.5})
+    self:CreatePoly({39, 259.5, 50.5, 192, 100, 191.5, 100.5, 193, 71.5, 233})
+    self:CreatePoly({100.5, 379, 62.5, 458, 72.5, 369, 98, 376.5})
+    self:CreatePoly({62.5, 458, 59.5, 467, 0, 556.5, 35.5, 346, 37, 346.5, 72.5, 369})
+    self:CreatePoly({72.5, 164, 50.5, 192, 47.5, 157, 72, 162.5})
+    self:CreatePoly({50.5, 192, 39, 259.5, 21.5, 105, 47.5, 157})
+    self:CreatePoly({35.5, 346, 2, -0.5, 21.5, 105, 39, 259.5})
+    self:CreatePoly({104, 557.5, 0, 556.5, 59.5, 467, 105.5, 556})
+
+    self:CreateCircle(9, 787, 250)
+
+    -- Create The Complex Shape 
+    self:CreatePoly({623, 441.5, 551.5, 357, 551.5, 355, 566, 349.5, 567, 349.5, 646.5, 426})
+    self:CreatePoly({566, 349.5, 551.5, 355, 564, 347.5})
+    self:CreatePoly({565, 719.5, 564.5, 712, 633, 601.5, 679.5, 719})
+    self:CreatePoly({564.5, 712, 565, 719.5, 563, 716.5})
+    self:CreatePoly({633, 601.5, 625.5, 613, 625.5, 612})
+    self:CreatePoly({565, 719.5, 565.5, 716, 633, 602.5, 679.5, 719})
+    self:CreatePoly({564.5, 713, 611.5, 637, 565.5, 716, 563.5, 716})
+    self:CreatePoly({633, 602.5, 611.5, 637, 611.5, 636, 629.5, 606})
+
+
+    -- Create The Complex Shape 
+    self:CreatePoly({   623, 441.5  ,  551.5, 357  ,  551.5, 355  ,  566, 349.5  ,  567, 349.5  ,  646.5, 426  })
+    self:CreatePoly({   566, 349.5  ,  551.5, 355  ,  564, 347.5  })
+    self:CreatePoly({   565, 719.5  ,  564.5, 712  ,  633, 601.5  ,  679.5, 719  })
+    self:CreatePoly({   564.5, 712  ,  565, 719.5  ,  563, 716.5  })
+    self:CreatePoly({   633, 601.5  ,  625.5, 613  ,  625.5, 612  })
+    self:CreatePoly({   565, 719.5  ,  565.5, 716  ,  633, 602.5  ,  679.5, 719  })
+    self:CreatePoly({   564.5, 713  ,  611.5, 637  ,  565.5, 716  ,  563.5, 716  })
+    self:CreatePoly({   633, 602.5  ,  611.5, 637  ,  611.5, 636  ,  629.5, 606  })
+
+
+    self:CreateDownOpening(388, 90)
 
 end
 
 function Level1:update(dt)
+    print(love.mouse.getPosition())
     self.player.x, self.player.y = self.player.body:getPosition()
-    if self.player.y > Window.height then
+    if self.player.y > Window.height + 20 then
         self.playing = false
     end
     if self.playing then
         self.timer = self.timer + dt
     end
-    if dt < 0.04 then
+    if dt < 0.04 and self.playing then
         self.world:update(dt)
         if options.BallTrail then
             self.e:update(dt, self)
@@ -67,16 +144,26 @@ function Level1:render()
         love.graphics.circle("fill", self.player.x, self.player.y, 20)
     end
     love.graphics.setColor(0.51, 0.51, 0.51, 1)
-    for i, v in ipairs(self.edges) do
+    for _, v in ipairs(self.edges) do
         love.graphics.line(v[1]:getWorldPoints(v[2]:getPoints()))
     end
-    for i, v in ipairs(self.boxes) do
+    for _, v in ipairs(self.boxes) do
         love.graphics.polygon('fill', v[1]:getWorldPoints(v[2]:getPoints()))
     end
-    for i, v in ipairs(self.cBoxes) do
+    for _, v in ipairs(self.cBoxes) do
         love.graphics.polygon('fill', v[1]:getWorldPoints(v[2]:getPoints()))
     end
+    for _, v in ipairs(self.Circles) do
+        local Xx, Yy = v.body:getPosition()
+        love.graphics.circle('fill', Xx, Yy, v.shape:getRadius())
+    end
+    for _, v in ipairs(self.Polygons) do
+        love.graphics.polygon('fill', v.vertices)
+    end
+
     self.mouseHandler:render(self)
+
+    -- love.graphics.circle('fill', xx, yy, 250)
 
     love.graphics.setFont(fonts['Bold16'])
     if self.playing then
@@ -90,6 +177,14 @@ function Level1:render()
         love.graphics.printf('Time: ' .. string.sub(tostring(self.timer), 1, 8), 0, Window.height / 2 - 30,
             Window.width, 'center')
     end
+    xx = imgui.SliderFloat("X", xx, -500, 200);
+    yy = imgui.SliderFloat("Y", yy, 500, 1200);
+    yO = imgui.SliderFloat("Y Offset", yO, 0, 200);
+    ww = imgui.SliderFloat("Width", ww, 0.0, 500);
+    hh = imgui.SliderFloat("Height", hh, 0.0, 500);
+    rr = imgui.SliderFloat("Round Edge", rr, 0, 0.183);
+    -- imgui.Render();
+
 end
 
 function Level1:exit()
@@ -98,7 +193,7 @@ end
 
 function Level1:Restart()
     self.player.fixture:destroy()
-    self.player.body = love.physics.newBody(self.world, self.originalPlayerX, self.originalPlayery, 'dynamic')
+    self.player.body = love.physics.newBody(self.world, self.originalPlayerX, self.originalPlayerY, 'dynamic')
     self.player.fixture = love.physics.newFixture(self.player.body, self.player.shape)
     self.player.fixture:setRestitution(1.1)
     self.timer = 0
@@ -106,7 +201,7 @@ function Level1:Restart()
 end
 
 function Level1:ClearAllCustomBoxes()
-    for i, v in ipairs(self.cBoxes) do
+    for _, v in ipairs(self.cBoxes) do
         v[3]:destroy()
     end
     self.cBoxes = {}
@@ -222,4 +317,31 @@ end
 function Level1:CreateDownOpening(x, size)
     self:CreateRectangle(0, Window.height - 5, Window.width, 5, 0, -Window.width / 2 + x - size / 2, 0)
     self:CreateRectangle(Window.width, Window.height - 5, Window.width, 5, 0, -Window.width / 2 + x + size / 2, 0)
+end
+
+function Level1:CreateCircle(x, y, radius)
+    local c = {}
+
+    c.body = love.physics.newBody(self.world, x, y, 'static')
+    c.shape = love.physics.newCircleShape(radius)
+    c.fixture = love.physics.newFixture(c.body, c.shape)
+
+    table.insert(self.Circles, c)
+end
+
+function Level1:CreatePoly(v)
+
+    local p = {}
+
+    p.body = love.physics.newBody(self.world, 0, 0, 'static')
+    p.shape = love.physics.newPolygonShape(v)
+    p.fixture = love.physics.newFixture(p.body, p.shape)
+    p.vertices = v
+
+    table.insert(self.Polygons, p)
+
+    -- avg = Vector(0, 0)
+    -- for i, w in ipairs(v) do
+
+    -- end
 end

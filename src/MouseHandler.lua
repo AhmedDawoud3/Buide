@@ -37,7 +37,7 @@ end
 
 function MouseHandler:render(level)
     love.graphics.setColor(1, 1, 1, 1)
-    if love.mouse.isDown(1) then
+    if love.mouse.isDown(1) and level.playing then
         if math.sqrt((self.tempRect.st.x - self.tempRect.en.x) ^ 2 + (self.tempRect.st.y - self.tempRect.en.y) ^ 2) > 20 then
             love.graphics.setColor(0.92, 0.92, 0.92, 1)
         else
