@@ -156,6 +156,12 @@ function Level1:update(dt)
         self.playing = false
     end
 
+    -- The losing state
+    -- When the ball goes out of the bound, Reset
+    if self.player.y < -20 or self.player.x < -20 or self.player.x > 1300 then
+        self:Restart()
+    end
+
     -- If playing then increment the timer with delta time
     if self.playing then
         self.timer = self.timer + dt
@@ -229,7 +235,6 @@ function Level1:render()
     -- Call the mouse handler render function
     self.mouseHandler:render(self)
 
-    
     love.graphics.setFont(fonts['Bold16'])
     -- Print cuurent time
     if self.playing then
@@ -245,13 +250,15 @@ function Level1:render()
             Window.width, 'center')
     end
 
-    -- IMGUI debugging
-    xx = imgui.SliderFloat("X", xx, -500, 200);
-    yy = imgui.SliderFloat("Y", yy, 500, 1200);
-    yO = imgui.SliderFloat("Y Offset", yO, 0, 200);
-    ww = imgui.SliderFloat("Width", ww, 0.0, 500);
-    hh = imgui.SliderFloat("Height", hh, 0.0, 500);
-    rr = imgui.SliderFloat("Round Edge", rr, 0, 0.183);
+    --[[
+        IMGUI debugging
+    ]]
+    -- xx = imgui.SliderFloat("X", xx, -500, 200);
+    -- yy = imgui.SliderFloat("Y", yy, 500, 1200);
+    -- yO = imgui.SliderFloat("Y Offset", yO, 0, 200);
+    -- ww = imgui.SliderFloat("Width", ww, 0.0, 500);
+    -- hh = imgui.SliderFloat("Height", hh, 0.0, 500);
+    -- rr = imgui.SliderFloat("Round Edge", rr, 0, 0.183);
     -- imgui.Render();
 
 end

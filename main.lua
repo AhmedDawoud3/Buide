@@ -11,7 +11,8 @@ fonts = {
     ['ExtraBold60'] = love.graphics.newFont('fonts/MontserratExtrabold.ttf', 60),
     ['ExtraBold100'] = love.graphics.newFont('fonts/MontserratExtrabold.ttf', 100),
     ['ExtraBoldItalic100'] = love.graphics.newFont('fonts/MontserratExtraboldItalic.ttf', 100),
-    ['ExtraBoldItalic60'] = love.graphics.newFont('fonts/MontserratExtraboldItalic.ttf', 60)
+    ['ExtraBoldItalic60'] = love.graphics.newFont('fonts/MontserratExtraboldItalic.ttf', 60),
+    ['symbol'] = love.graphics.newFont('fonts/symbola.ttf', 30)
 }
 
 levelsImages = {

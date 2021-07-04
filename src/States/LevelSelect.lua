@@ -138,7 +138,7 @@ function LevelSelect:render()
                 draw = function()
                     love.graphics.setColor(1, 1, 1, 1)
                     love.graphics.draw(levelsImages[i] or demoImage, levelsOffset.value + (i - 1) % 3 * 412 + 110 + 16,
-                        math.floor(i / 4) * 261 +  147, 0, 0.101599, 0.101599)
+                        math.floor(i / 4) * 261 + 147, 0, 0.101599, 0.101599)
                 end
             }, levelsOffset.value + (i - 1) % 3 * 412 + 110, math.floor(i / 4) * (245 + 21) + 15 + 105, 239, 200)
                 .hovered then
