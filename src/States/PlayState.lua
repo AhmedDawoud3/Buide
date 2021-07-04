@@ -11,6 +11,9 @@ local xx, yy, ww, hh, rr, xO, yO = 0, 0, 0, 0, 0, 0, 0
     We initialize what's in our PlayState via function that is called when we enter play state
 ]]
 function PlayState:enter(params)
+    -- Stop the main menu sound when entering play state
+    sounds['main']:stop()
+
     -- Link LevelManager with levels
     self.LevelManager = LevelManager {
         ['Level1'] = function()
@@ -44,7 +47,7 @@ function PlayState:update(dt)
         else
             if self.suit:Button('↺ ', {
                 font = fonts['symbol']
-            }, Window.width /2 - 35 - 70, Window.height /2 - 35 + 70, 70, 70).hit then
+            }, Window.width / 2 - 35 - 70, Window.height / 2 - 35 + 70, 70, 70).hit then
                 -- If clicked then call the reset function of the current level
                 self.LevelManager.current:Restart()
             end
@@ -71,3 +74,7 @@ function PlayState:render()
     -- imgui.Render();
 end
 
+function PlayState:exit()
+    -- Plays the main menu sound when leaving play state
+    sounds['main']:play()
+end

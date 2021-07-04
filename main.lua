@@ -1,3 +1,13 @@
+--[[
+    Buide
+
+    Author: Ahmed Dawoud
+    adawoud1000@hotmail.com
+
+    Credit for music:
+    https://freesound.org/people/Erokia/sounds/183881/
+]]
+
 require 'src.Dependencies'
 require "imgui"
 
@@ -15,10 +25,12 @@ fonts = {
     ['symbol'] = love.graphics.newFont('fonts/symbola.ttf', 30)
 }
 
-levelsImages = {
-    love.graphics.newImage('assets/images/Levels/1.png'),
-    love.graphics.newImage('assets/images/Levels/2.png')
+sounds = {
+    ['main'] = love.audio.newSource('assets/sounds/main.wav', 'static')
 }
+
+levelsImages = {love.graphics.newImage('assets/images/Levels/1.png'),
+                love.graphics.newImage('assets/images/Levels/2.png')}
 
 function love.load()
     love.window.setTitle("Buide")
@@ -56,6 +68,7 @@ function love.load()
     love.mouse.keysPressed = {}
     love.mouse.keysReleased = {}
     -- SaveGame()
+    sounds['main']:play()
 end
 
 function love.update(dt)
@@ -70,7 +83,7 @@ function love.draw()
     gStateMachine:render()
     DisplayFPS()
     push:apply('end')
-    
+
     -- reset keys pressed
     love.keyboard.keysPressed = {}
     love.mouse.keysPressed = {}
