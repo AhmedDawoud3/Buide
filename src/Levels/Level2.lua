@@ -1,8 +1,8 @@
-Level2 = Class {
+Level1 = Class {
     __includes = BaseLevel
 }
 
-function Level2:enter()
+function Level1:enter()
     self.world = love.physics.newWorld(0, 1500)
     self.player = {}
     self.player.shape = love.physics.newCircleShape(20)
@@ -30,7 +30,7 @@ function Level2:enter()
 
 end
 
-function Level2:update(dt)
+function Level1:update(dt)
     self.player.x, self.player.y = self.player.body:getPosition()
     if self.player.y > Window.height then
         self.playing = false
@@ -57,7 +57,7 @@ function Level2:update(dt)
     end
 end
 
-function Level2:render()
+function Level1:render()
     love.graphics.clear(0.16, 0.19, 0.2, 1)
     if options.BallTrail then
         self.e:draw()
@@ -92,11 +92,11 @@ function Level2:render()
     end
 end
 
-function Level2:exit()
+function Level1:exit()
     self.world:destroy()
 end
 
-function Level2:Restart()
+function Level1:Restart()
     self.player.fixture:destroy()
     self.player.body = love.physics.newBody(self.world, self.originalPlayerX, self.originalPlayery, 'dynamic')
     self.player.fixture = love.physics.newFixture(self.player.body, self.player.shape)
@@ -105,21 +105,21 @@ function Level2:Restart()
     self.playing = true
 end
 
-function Level2:ClearAllCustomBoxes()
+function Level1:ClearAllCustomBoxes()
     for i, v in ipairs(self.cBoxes) do
         v[3]:destroy()
     end
     self.cBoxes = {}
 end
 
-function Level2:CleareLastCustomBox()
+function Level1:CleareLastCustomBox()
     if #self.cBoxes > 0 then
         self.cBoxes[#self.cBoxes][3]:destroy()
         self.cBoxes[#self.cBoxes] = nil
     end
 end
 
-function Level2:CreateEdge(x, y, width, height)
+function Level1:CreateEdge(x, y, width, height)
     local b = {}
     --  static ground body
     table.insert(b, love.physics.newBody(self.world, x, y, 'static'))
@@ -132,7 +132,7 @@ function Level2:CreateEdge(x, y, width, height)
     table.insert(self.edges, b)
 end
 
-function Level2:CreateFullEdge(place)
+function Level1:CreateFullEdge(place)
     if place == 'left' then
         local b = {}
         --  static ground body
@@ -184,7 +184,7 @@ function Level2:CreateFullEdge(place)
     end
 end
 
-function Level2:CreateBox(x, y, size, rotation)
+function Level1:CreateBox(x, y, size, rotation)
     local Box = {}
     table.insert(Box, love.physics.newBody(self.world, x, y, 'static'))
     table.insert(Box, love.physics.newRectangleShape(size or 100, size or 100))
@@ -195,7 +195,7 @@ function Level2:CreateBox(x, y, size, rotation)
     table.insert(self.boxes, Box)
 end
 
-function Level2:CreateRectangle(x, y, width, height, rotation, xOffset, yOffset)
+function Level1:CreateRectangle(x, y, width, height, rotation, xOffset, yOffset)
     local Box = {}
     table.insert(Box, love.physics.newBody(self.world, x, y, 'static'))
     table.insert(Box, love.physics.newRectangleShape(width or 100, height or 100))
@@ -207,7 +207,7 @@ function Level2:CreateRectangle(x, y, width, height, rotation, xOffset, yOffset)
     table.insert(self.boxes, Box)
 end
 
-function Level2:CreateCustomRectangle(x, y, width, height, rotation, xOffset, yOffset)
+function Level1:CreateCustomRectangle(x, y, width, height, rotation, xOffset, yOffset)
     local Box = {}
     table.insert(Box, love.physics.newBody(self.world, x, y, 'static'))
     table.insert(Box, love.physics.newRectangleShape(width or 100, height or 100))
@@ -219,7 +219,7 @@ function Level2:CreateCustomRectangle(x, y, width, height, rotation, xOffset, yO
     table.insert(self.cBoxes, Box)
 end
 
-function Level2:CreateDownOpening(x, size)
+function Level1:CreateDownOpening(x, size)
     self:CreateRectangle(0, Window.height - 5, Window.width, 5, 0, -Window.width / 2 + x - size / 2, 0)
     self:CreateRectangle(Window.width, Window.height - 5, Window.width, 5, 0, -Window.width / 2 + x + size / 2, 0)
 end

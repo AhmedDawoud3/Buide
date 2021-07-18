@@ -41,8 +41,7 @@ function love.load()
     -- actual window no matter its dimensions
     push:setupScreen(Window.width, Window.height, Window.width, Window.height, {
         fullscreen = options.FullScreen,
-        resizable = true,
-        vsync = true
+        resizable = true
     })
 
     -- the state machine we'll be using to transition between various states

@@ -1,4 +1,4 @@
-Level1 = Class {
+Level2 = Class {
     __includes = BaseLevel
 }
 
@@ -8,7 +8,7 @@ local xx, yy, ww, hh, rr, xO, yO = 0, 0, 0, 0, 0, 0, 0
 --[[
     We initialize what's in Level 1 via this function that is called once we enter tha level
 ]]
-function Level1:enter()
+function Level2:enter()
     --[[
         We're written "self." before the variable to make them local to the level so can't be used in other levels
     ]]
@@ -146,7 +146,7 @@ function Level1:enter()
 
 end
 
-function Level1:update(dt)
+function Level2:update(dt)
     -- keep track of the player's (X and Y) values
     self.player.x, self.player.y = self.player.body:getPosition()
 
@@ -192,7 +192,7 @@ function Level1:update(dt)
     end
 end
 
-function Level1:render()
+function Level2:render()
     love.graphics.clear(0.16, 0.19, 0.2, 1)
 
     -- Only draw the ball trail if the option is enabled
@@ -266,7 +266,7 @@ end
 --[[
     This function will be called when we exit the level
 ]]
-function Level1:exit()
+function Level2:exit()
     -- Destroy the world when leaving the game
     self.world:destroy()
 end
@@ -274,7 +274,7 @@ end
 --[[
     a function to restart the game and reset the player's position
 ]]
-function Level1:Restart()
+function Level2:Restart()
     -- Destroy the current player fixture
     self.player.fixture:destroy()
 
@@ -297,7 +297,7 @@ end
 --[[
     function to clear all custom created boxes
 ]]
-function Level1:ClearAllCustomBoxes()
+function Level2:ClearAllCustomBoxes()
     -- Loop Thought all custom created boxes and destroy them
     for _, v in ipairs(self.cBoxes) do
         v[3]:destroy()
@@ -310,7 +310,7 @@ end
 --[[
     function to clear last custom created boxes
 ]]
-function Level1:CleareLastCustomBox()
+function Level2:CleareLastCustomBox()
     if #self.cBoxes > 0 then
         self.cBoxes[#self.cBoxes][3]:destroy()
         self.cBoxes[#self.cBoxes] = nil
@@ -321,7 +321,7 @@ end
     function to create an edge
     {x and y are the center of the edge not its top left}
 ]]
-function Level1:CreateEdge(x, y, width, height)
+function Level2:CreateEdge(x, y, width, height)
     -- Create a temp table contaioning the body, shape and fixture
 
     local b = {}
@@ -339,7 +339,7 @@ end
 --[[
     function to create a full edge blocking all the side (left, right, up or down)
 ]]
-function Level1:CreateFullEdge(place)
+function Level2:CreateFullEdge(place)
     if place == 'left' then
         -- Create a temp table contaioning the body, shape and fixture
         local b = {}
@@ -404,7 +404,7 @@ end
     {x and y are the center of the edge not its top left}
     rotation value is in degrees
 ]]
-function Level1:CreateBox(x, y, size, rotation)
+function Level2:CreateBox(x, y, size, rotation)
     -- Create a temp table contaioning the body, shape and fixture
     local Box = {}
 
@@ -426,7 +426,7 @@ end
     {x and y are the center of the edge not its top left}
     rotation value is in degrees
 ]]
-function Level1:CreateRectangle(x, y, width, height, rotation, xOffset, yOffset)
+function Level2:CreateRectangle(x, y, width, height, rotation, xOffset, yOffset)
     -- Create a temp table contaioning the body, shape and fixture
     local Box = {}
 
@@ -451,7 +451,7 @@ end
     {x and y are the center of the edge not its top left}
     rotation value is in degrees
 ]]
-function Level1:CreateCustomRectangle(x, y, width, height, rotation, xOffset, yOffset)
+function Level2:CreateCustomRectangle(x, y, width, height, rotation, xOffset, yOffset)
     -- Create a temp table contaioning the body, shape and fixture
     local Box = {}
 
@@ -472,7 +472,7 @@ end
 --[[
     function to create a two "down" edges and leave "size" piexels between them
 ]]
-function Level1:CreateDownOpening(x, size)
+function Level2:CreateDownOpening(x, size)
     self:CreateRectangle(0, Window.height - 5, Window.width, 5, 0, -Window.width / 2 + x - size / 2, 0)
     self:CreateRectangle(Window.width, Window.height - 5, Window.width, 5, 0, -Window.width / 2 + x + size / 2, 0)
 end
@@ -480,7 +480,7 @@ end
 --[[
     function to create circle obstacles
 ]]
-function Level1:CreateCircle(x, y, radius)
+function Level2:CreateCircle(x, y, radius)
     -- Create a temp table contaioning the body, shape and fixture
     local c = {}
 
@@ -506,7 +506,7 @@ end
 --[[
     function to create a polygon with parameter "v" for vertices 
 ]]
-function Level1:CreatePoly(v)
+function Level2:CreatePoly(v)
     -- Create a temp table contaioning the body, shape and fixture
     local p = {}
 
