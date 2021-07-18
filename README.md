@@ -18,7 +18,8 @@ sudo apt install love
 
 ### Download LOVE-IMGUI
 * Download [imgui.dll](https://github.com/slages/love-imgui/releases/download/master-latest/imgui.dll)
-* Place it in LÖVE's directory; Default in *Windows* is ```C:\Program Files\LOVE ```
+- Place it in LÖVE's directory 
+     - Default in *Windows* is ```C:\Program Files\LOVE ```
 
 ### Run The Game
 ```bash
