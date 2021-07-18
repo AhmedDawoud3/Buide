@@ -239,15 +239,17 @@ function Level2:render()
     -- Print cuurent time
     if self.playing then
         love.graphics.setColor(1, 1, 1, 1)
-        love.graphics.printf('Time: ' .. string.sub(tostring(self.timer), 1, 4), 0, 30, Window.width, 'center')
+        love.graphics.printf('Time: ' .. math.floor(math.floor(self.timer)) ..
+                                 string.sub(tostring(self.timer -math.floor(self.timer)), 2, 4), 0, 30, Window.width,
+            'center')
     else
         -- Draw a rectangle to cover the whole screen with 0.3 alpha
         love.graphics.setColor(0, 0, 0, 0.3)
         love.graphics.rectangle('fill', 0, 0, Window.width, Window.height)
         love.graphics.setFont(fonts['Bold32'])
-        love.graphics.setColor(1, 0.1, 0.1, 1)
-        love.graphics.printf('Time: ' .. string.sub(tostring(self.timer), 1, 8), 0, Window.height / 2 - 30,
-            Window.width, 'center')
+        love.graphics.setColor(1, 102 / 255, 90 / 255)
+        love.graphics.printf('Time: ' .. string.sub(tostring(math.floor(self.timer) % self.timer), 1, 4), 0,
+            Window.height / 2 - 30, Window.width, 'center')
     end
 
     --[[

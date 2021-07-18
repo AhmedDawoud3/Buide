@@ -62,6 +62,9 @@ function love.load()
         end,
         ['levelSelect'] = function()
             return LevelSelect()
+        end,
+        ['PauseState'] = function()
+            return PauseState()
         end
 
     }
