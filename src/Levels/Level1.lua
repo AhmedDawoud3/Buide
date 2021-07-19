@@ -3,7 +3,7 @@ Level1 = Class {
 }
 
 function Level1:enter()
-   --[[
+    --[[
         We're written "self." before the variable to make them local to the level so can't be used in other levels
     ]]
 
@@ -50,8 +50,10 @@ function Level1:enter()
     self.timer = 0
 
     self.originalPlayerX, self.originalPlayerY = Window.width - 100, 100
-    
+
     self.player.body:setPosition(self.originalPlayerX, self.originalPlayerY)
+
+    highScored = false
 
     self:CreateFullEdge('left')
     self:CreateFullEdge('upper')
@@ -66,10 +68,17 @@ end
 
 function Level1:update(dt)
     self.player.x, self.player.y = self.player.body:getPosition()
-    if self.player.y > Window.height then
-        self.playing = false
-    end
     if self.playing then
+        if self.player.y > Window.height then
+            self.playing = false
+            if self.timer < LoadScore(1) then
+                highScored = true
+                SaveScore({
+                    level = 1,
+                    score = self.timer
+                })
+            end
+        end
         self.timer = self.timer + fixedDT
     end
     self.world:update(fixedDT)
@@ -122,6 +131,11 @@ function Level1:render()
         love.graphics.setFont(fonts['Bold32'])
         love.graphics.setColor(1, 102 / 255, 90 / 255)
         love.graphics.printf('Time: ' .. TimeGSUB(self.timer, 4), 0, Window.height / 2 - 30, Window.width, 'center')
+        if highScored then
+            love.graphics.setFont(fonts['ExtraBold60'])
+            rgb(0, 132, 169)
+            love.graphics.printf('A New Highscore !', 0, Window.height / 2 - 120, Window.width, 'center')
+        end
     end
 
 end
@@ -137,6 +151,7 @@ function Level1:Restart()
     self.player.fixture:setRestitution(1.1)
     self.timer = 0
     self.playing = true
+    highScored = false
 end
 
 function Level1:ClearAllCustomBoxes()

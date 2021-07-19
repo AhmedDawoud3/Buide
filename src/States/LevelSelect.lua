@@ -7,12 +7,15 @@ local Easing = require 'lib.easing'
 local pages = {{
     active = true,
     levels = {{
-        highScore = 99.99,
+        highScore = LoadScore(1),
         selected = false
     }, {
-        highScore = 99.99,
+        highScore = LoadScore(2),
         selected = false
     }, false, false, false, false}
+}, {
+    active = false,
+    levels = {false, false, false, false, false, false}
 }, {
     active = false,
     levels = {false, false, false, false, false, false}
@@ -131,7 +134,7 @@ function LevelSelect:render()
         else
             love.graphics.printf("Level " .. i + 6 * (self.pageIndex - 1), 0, -50, 239, 'center')
             love.graphics.setFont(fonts['Medium20'])
-            love.graphics.printf("Best Time: " .. "99:99", 0, 168, 239, 'center')
+            love.graphics.printf("Best Time: " .. TimeGSUB(v.highScore, 2), 0, 168, 239, 'center')
             if v and self.suit:Button(i, {
                 font = fonts['Semibold40'],
                 cornerRadius = 30,
@@ -222,10 +225,10 @@ function LevelSelect:PreviousPage()
     if levelsOffset.value == 0 and self.pageIndex ~= 1 then
         Timer.tween(0.5, {
             [levelsOffset] = {
-                value = -1180
+                value = 1180
             }
         }):ease(Easing.inCubic):finish(function()
-            levelsOffset.value = 1180
+            levelsOffset.value = -1180
             pages[self.pageIndex].active = false
             if self.pageIndex ~= 1 then
                 self.pageIndex = self.pageIndex - 1

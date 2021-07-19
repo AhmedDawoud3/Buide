@@ -18,6 +18,7 @@ function love.load()
     -- set the application title bar
     love.window.setTitle("Buide")
 
+    -- Load settings
     options = LoadSaveFile()
 
     -- initialize our fonts

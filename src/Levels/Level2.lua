@@ -55,6 +55,8 @@ function Level2:enter()
     -- Make a timer and set it to 0
     self.timer = 0
 
+    highScored = false
+
     --[[
         Level Disign
     ]]
@@ -82,65 +84,65 @@ function Level2:enter()
     self:CreatePoly({1160, 161, 1280, 161, 1280, 347})
 
     -- Create The Complex Shape
-    self:CreatePoly({1199.5, 601, 1218.5, 648, 1195, 647.5, 1176.5, 627})
-    self:CreatePoly({1218.5, 648, 1278, 690.5, 1211, 690.5})
-    self:CreatePoly({1169.5, 505, 1230.5, 444, 1205.5, 576, 1172, 564.5})
-    self:CreatePoly({1185.5, 383, 1233, 376.5, 1187, 396.5})
-    self:CreatePoly({1146.5, 334, 1146.5, 332, 1188, 292.5, 1279.5, 337, 1233, 376.5, 1185.5, 383})
-    self:CreatePoly({1199.5, 601, 1205.5, 576, 1278, 690.5, 1218.5, 648})
-    self:CreatePoly({1230.5, 444, 1278, 690.5, 1205.5, 576})
-    self:CreatePoly({1194.5, 227, 1188, 292.5, 1190.5, 223, 1194.5, 226})
-    self:CreatePoly({1279.5, 337, 1188, 292.5, 1194.5, 227})
-    self:CreatePoly({1234.5, 377, 1279.5, 337, 1279.5, 690, 1278, 690.5, 1230.5, 444})
-    self:CreatePoly({1279.5, 337, 1234.5, 377, 1233, 376.5})
-    self:CreatePoly({266.5, 535, 405.5, 504, 318, 559.5, 252, 551.5})
+    self:CreatePoly({1199, 601, 1218, 648, 1195, 647, 1176, 627})
+    self:CreatePoly({1218, 648, 1278, 690, 1211, 690})
+    self:CreatePoly({1169, 505, 1230, 444, 1205, 576, 1172, 564})
+    self:CreatePoly({1185, 383, 1233, 376, 1187, 396})
+    self:CreatePoly({1146, 334, 1146, 332, 1188, 292, 1279, 337, 1233, 376, 1185, 383})
+    self:CreatePoly({1199, 601, 1205, 576, 1278, 690, 1218, 648})
+    self:CreatePoly({1230, 444, 1278, 690, 1205, 576})
+    self:CreatePoly({1194, 227, 1188, 292, 1190, 223, 1194, 226})
+    self:CreatePoly({1279, 337, 1188, 292, 1194, 227})
+    self:CreatePoly({1234, 377, 1279, 337, 1279, 690, 1278, 690, 1230, 444})
+    self:CreatePoly({1279, 337, 1234, 377, 1233, 376})
+    self:CreatePoly({266, 535, 405, 504, 318, 559, 252, 551})
 
     -- Create The Complex Shape 
-    self:CreatePoly({374, 388.5, 256, 480.5, 198, 463.5, 195.5, 461, 263, 395.5})
-    self:CreatePoly({405.5, 504, 266.5, 535, 265.5, 534, 294.5, 480, 407, 471.5})
-    self:CreatePoly({294.5, 480, 259, 482.5, 374, 388.5, 375, 388.5, 381, 389.5})
-    self:CreatePoly({179, 499.5, 259, 482.5, 294.5, 480, 265.5, 534, 177, 501.5})
-    self:CreatePoly({374, 388.5, 259, 482.5, 256, 480.5})
+    self:CreatePoly({374, 388, 256, 480, 198, 463, 195, 461, 263, 395})
+    self:CreatePoly({405, 504, 266, 535, 265, 534, 294, 480, 407, 471})
+    self:CreatePoly({294, 480, 259, 482, 374, 388, 375, 388, 381, 389})
+    self:CreatePoly({179, 499, 259, 482, 294, 480, 265, 534, 177, 501})
+    self:CreatePoly({374, 388, 259, 482, 256, 480})
 
     -- Create The Complex Shape 
-    self:CreatePoly({222.5, 302, 218.5, 295, 272, 245.5, 275, 244.5, 276, 244.5, 345.5, 280, 303, 317.5, 246, 330.5})
-    self:CreatePoly({343.5, 275, 345.5, 280, 276, 244.5, 326, 251.5})
+    self:CreatePoly({222, 302, 218, 295, 272, 245, 275, 244, 276, 244, 345, 280, 303, 317, 246, 330})
+    self:CreatePoly({343, 275, 345, 280, 276, 244, 326, 251})
 
     -- Create The Complex Shape 
-    self:CreatePoly({71.5, 233, 100.5, 193, 93.5, 251, 90, 252.5, 72, 253.5})
-    self:CreatePoly({72.5, 369, 37, 346.5, 77, 315.5, 94.5, 341})
-    self:CreatePoly({47.5, 157, 21.5, 105, 47, 105.5})
-    self:CreatePoly({21.5, 105, 2, -0.5, 26, -0.5})
-    self:CreatePoly({2, -0.5, 35.5, 346, 0, 556.5, -0.5, 555, -0.5, 0, 1, -0.5})
-    self:CreatePoly({39, 259.5, 50.5, 192, 100, 191.5, 100.5, 193, 71.5, 233})
-    self:CreatePoly({100.5, 379, 62.5, 458, 72.5, 369, 98, 376.5})
-    self:CreatePoly({62.5, 458, 59.5, 467, 0, 556.5, 35.5, 346, 37, 346.5, 72.5, 369})
-    self:CreatePoly({72.5, 164, 50.5, 192, 47.5, 157, 72, 162.5})
-    self:CreatePoly({50.5, 192, 39, 259.5, 21.5, 105, 47.5, 157})
-    self:CreatePoly({35.5, 346, 2, -0.5, 21.5, 105, 39, 259.5})
-    self:CreatePoly({104, 557.5, 0, 556.5, 59.5, 467, 105.5, 556})
+    self:CreatePoly({71, 233, 100, 193, 93, 251, 90, 252, 72, 253})
+    self:CreatePoly({72, 369, 37, 346, 77, 315, 94, 341})
+    self:CreatePoly({47, 157, 21, 105, 47, 105})
+    self:CreatePoly({21, 105, 2, -0, 26, -0})
+    self:CreatePoly({2, -0, 35, 346, 0, 556, -0, 555, -0, 0, 1, -0})
+    self:CreatePoly({39, 259, 50, 192, 100, 191, 100, 193, 71, 233})
+    self:CreatePoly({100, 379, 62, 458, 72, 369, 98, 376})
+    self:CreatePoly({62, 458, 59, 467, 0, 556, 35, 346, 37, 346, 72, 369})
+    self:CreatePoly({72, 164, 50, 192, 47, 157, 72, 162})
+    self:CreatePoly({50, 192, 39, 259, 21, 105, 47, 157})
+    self:CreatePoly({35, 346, 2, -0, 21, 105, 39, 259})
+    self:CreatePoly({104, 557, 0, 556, 59, 467, 105, 556})
 
     self:CreateCircle(9, 787, 250)
 
     -- Create The Complex Shape 
-    self:CreatePoly({623, 441.5, 551.5, 357, 551.5, 355, 566, 349.5, 567, 349.5, 646.5, 426})
-    self:CreatePoly({566, 349.5, 551.5, 355, 564, 347.5})
-    self:CreatePoly({565, 719.5, 564.5, 712, 633, 601.5, 679.5, 719})
-    self:CreatePoly({564.5, 712, 565, 719.5, 563, 716.5})
-    self:CreatePoly({633, 601.5, 625.5, 613, 625.5, 612})
-    self:CreatePoly({565, 719.5, 565.5, 716, 633, 602.5, 679.5, 719})
-    self:CreatePoly({564.5, 713, 611.5, 637, 565.5, 716, 563.5, 716})
-    self:CreatePoly({633, 602.5, 611.5, 637, 611.5, 636, 629.5, 606})
+    self:CreatePoly({623, 441, 551, 357, 551, 355, 566, 349, 567, 349, 646, 426})
+    self:CreatePoly({566, 349, 551, 355, 564, 347})
+    self:CreatePoly({565, 719, 564, 712, 633, 601, 679, 719})
+    self:CreatePoly({564, 712, 565, 719, 563, 716})
+    self:CreatePoly({633, 601, 625, 613, 625, 612})
+    self:CreatePoly({565, 719, 565, 716, 633, 602, 679, 719})
+    self:CreatePoly({564, 713, 611, 637, 565, 716, 563, 716})
+    self:CreatePoly({633, 602, 611, 637, 611, 636, 629, 606})
 
     -- Create The Complex Shape 
-    self:CreatePoly({623, 441.5, 551.5, 357, 551.5, 355, 566, 349.5, 567, 349.5, 646.5, 426})
-    self:CreatePoly({566, 349.5, 551.5, 355, 564, 347.5})
-    self:CreatePoly({565, 719.5, 564.5, 712, 633, 601.5, 679.5, 719})
-    self:CreatePoly({564.5, 712, 565, 719.5, 563, 716.5})
-    self:CreatePoly({633, 601.5, 625.5, 613, 625.5, 612})
-    self:CreatePoly({565, 719.5, 565.5, 716, 633, 602.5, 679.5, 719})
-    self:CreatePoly({564.5, 713, 611.5, 637, 565.5, 716, 563.5, 716})
-    self:CreatePoly({633, 602.5, 611.5, 637, 611.5, 636, 629.5, 606})
+    self:CreatePoly({623, 441, 551, 357, 551, 355, 566, 349, 567, 349, 646, 426})
+    self:CreatePoly({566, 349, 551, 355, 564, 347})
+    self:CreatePoly({565, 719, 564, 712, 633, 601, 679, 719})
+    self:CreatePoly({564, 712, 565, 719, 563, 716})
+    self:CreatePoly({633, 601, 625, 613, 625, 612})
+    self:CreatePoly({565, 719, 565, 716, 633, 602, 679, 719})
+    self:CreatePoly({564, 713, 611, 637, 565, 716, 563, 716})
+    self:CreatePoly({633, 602, 611, 637, 611, 636, 629, 606})
 
     self:CreateDownOpening(388, 90)
 
@@ -150,21 +152,26 @@ function Level2:update(dt)
     -- keep track of the player's (X and Y) values
     self.player.x, self.player.y = self.player.body:getPosition()
 
-    -- The winning state
-    -- Set the winning state when the player's body passes the window height completely (the +20 refers to the player's radius')
-    if self.player.y > Window.height + 20 then
-        self.playing = false
-    end
-
-    -- The losing state
-    -- When the ball goes out of the bound, Reset
-    if self.player.y < -20 or self.player.x < -20 or self.player.x > 1300 and self.playing then
-        self:Restart()
-    end
-
-    -- If playing then increment the timer with delta time
+    -- If playing then increment the timer with the fixed delta time
     if self.playing then
         self.timer = self.timer + fixedDT
+        -- The winning state
+        -- Set the winning state when the player's body passes the window height completely (the +20 refers to the player's radius')
+        if self.player.y > Window.height + 20 then
+            self.playing = false
+            if self.timer < LoadScore(2) then
+                highScored = true
+                SaveScore({
+                    level = 2,
+                    score = self.timer
+                })
+            end
+        end
+        -- The losing state
+        -- When the ball goes out of the bound, Reset
+        if self.player.y < -20 or self.player.x < -20 or self.player.x > 1300 then
+            self:Restart()
+        end
     end
 
     self.world:update(fixedDT)
@@ -244,6 +251,11 @@ function Level2:render()
         love.graphics.setFont(fonts['Bold32'])
         love.graphics.setColor(1, 102 / 255, 90 / 255)
         love.graphics.printf('Time: ' .. TimeGSUB(self.timer, 4), 0, Window.height / 2 - 30, Window.width, 'center')
+        if highScored then
+            love.graphics.setFont(fonts['ExtraBold60'])
+            love.graphics.setColor(options.BallColor[1], options.BallColor[2], options.BallColor[3], 1)
+            love.graphics.printf('A New Highscore !', 0, Window.height / 2 - 120, Window.width, 'center')
+        end
     end
 
     --[[
@@ -288,6 +300,8 @@ function Level2:Restart()
 
     -- Set Playing to true
     self.playing = true
+
+    highScored = false
 end
 
 --[[
