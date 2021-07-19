@@ -15,6 +15,8 @@ Vector = require 'lib/vector'
 -- Suit Libirary (UI)
 Suit = require 'lib/suit'
 
+require 'src/Utils'
+
 -- Constants (eg. Window Width and Height)
 require 'src/CONSTANTS'
 
@@ -24,6 +26,7 @@ require 'src/StateMachine'
 require 'src/EffectManager'
 
 require 'src/MouseHandler'
+
 
 -- SaveManager
 require 'src/SaveManager'

@@ -8,6 +8,8 @@ Screen = {
     height = love.graphics.getHeight()
 }
 
+fixedDT = 0.016666666666666
+
 BallColors ={
     {0.99, 0.85, 0},
     {0.65, 0.23, 0.22},
