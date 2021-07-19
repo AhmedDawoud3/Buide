@@ -6,6 +6,7 @@
 
     Credit for music:
     https://freesound.org/people/Erokia/sounds/183881/
+    https://freesound.org/people/Erokia/sounds/477924/
 ]] --
 require 'src.Dependencies'
 require "imgui"
@@ -71,10 +72,6 @@ function love.load()
     }
     gStateMachine:change('start')
 
-    sounds = {
-        ['main'] = love.audio.newSource('assets/sounds/main.wav', 'static')
-    }
-
     -- Load The Levels thumbnail for level select screen
     levelsImages = {love.graphics.newImage('assets/images/Levels/1.png'),
                     love.graphics.newImage('assets/images/Levels/2.png')}
@@ -88,7 +85,6 @@ function love.load()
 
     -- play our music outside of all states and set it to looping
     sounds['main']:play()
-    sounds['main']:setLooping(true)
 end
 
 function love.update(dt)
@@ -102,7 +98,7 @@ function love.update(dt)
 end
 
 function love.draw()
-    -- Starting push to scale all the renders according to the window dimensions
+-- Starting push to scale all the renders according to the window dimensions
     push:apply('start')
     gStateMachine:render()
     DisplayFPS()

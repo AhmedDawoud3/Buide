@@ -9,7 +9,7 @@ function PauseState:enter(params)
     self.suit = Suit.new()
 
     -- Stop the main menu sound when coming from play state
-    sounds['main']:stop()
+    -- sounds['main']:stop()
 end
 
 function PauseState:update(dt)

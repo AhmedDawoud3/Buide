@@ -8,6 +8,13 @@ Screen = {
     height = love.graphics.getHeight()
 }
 
+sounds = {
+    ['main'] = love.audio.newSource('assets/sounds/main.wav', 'static'),
+    ['play'] = love.audio.newSource('assets/sounds/play.wav', 'static')
+}
+sounds['main']:setLooping(true)
+sounds['play']:setLooping(true)
+
 fixedDT = 0.016666666666666
 
 BallColors ={

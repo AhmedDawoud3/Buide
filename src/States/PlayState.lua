@@ -14,6 +14,8 @@ function PlayState:enter(params)
     -- Stop the main menu sound when entering play state
     sounds['main']:stop()
 
+    sounds['play']:play()
+
     -- Check if came from pause state then take its parameters from it
     if params.fromPause then
         self.LevelManager = params.playState.LevelManager
@@ -69,6 +71,8 @@ function PlayState:update(dt)
                 font = fonts['Bold32']
             }, 20, 646, 90, 50).hit then
                 gStateMachine:change('levelSelect')
+                -- Plays the main menu sound when leaving play state
+                sounds['main']:play()
             end
         end
     end
@@ -93,7 +97,3 @@ function PlayState:render()
     -- imgui.Render();
 end
 
-function PlayState:exit()
-    -- Plays the main menu sound when leaving play state
-    sounds['main']:play()
-end
