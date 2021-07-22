@@ -18,6 +18,7 @@ function PauseState:update(dt)
         font = fonts['Bold16']
     }, 20, 646, 110, 50).hit then
         gStateMachine:change('start')
+        sounds['play']:stop()
         sounds['main']:play()
     end
 

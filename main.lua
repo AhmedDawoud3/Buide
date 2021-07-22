@@ -12,7 +12,6 @@ require 'src.Dependencies'
 require "imgui"
 
 function love.load()
-
     -- seed the RNG so that calls to random are always random
     math.randomseed(os.time())
 
@@ -29,7 +28,9 @@ function love.load()
         ['Bold16'] = love.graphics.newFont('fonts/MontserratBold.ttf', 16),
         ['Bold32'] = love.graphics.newFont('fonts/MontserratBold.ttf', 32),
         ['Medium40'] = love.graphics.newFont('fonts/MontserratMedium.ttf', 40),
+        ['Medium37'] = love.graphics.newFont('fonts/MontserratMedium.ttf', 40),
         ['Medium20'] = love.graphics.newFont('fonts/MontserratMedium.ttf', 20),
+        ['Light40'] = love.graphics.newFont('fonts/MontserratLight.ttf', 40),
         ['Semibold40'] = love.graphics.newFont('fonts/MontserratSemibold.ttf', 40),
         ['ExtraBold60'] = love.graphics.newFont('fonts/MontserratExtrabold.ttf', 60),
         ['ExtraBold100'] = love.graphics.newFont('fonts/MontserratExtrabold.ttf', 100),
@@ -37,6 +38,9 @@ function love.load()
         ['ExtraBoldItalic60'] = love.graphics.newFont('fonts/MontserratExtraboldItalic.ttf', 60),
         ['symbol'] = love.graphics.newFont('fonts/symbola.ttf', 30)
     }
+    -- for i = 1, 100 do 
+    --     fonts["Medium" .. tostring(i)] = love.graphics.newFont('fonts/MontserratMedium.ttf', i)
+    -- end
     love.graphics.setFont(fonts['Regular'])
 
     -- initialize our resolution, which will be rendered within our
@@ -67,6 +71,12 @@ function love.load()
         end,
         ['PauseState'] = function()
             return PauseState()
+        end,
+        ['LevelConfirm'] = function()
+            return LevelConfirm()
+        end,
+        ['SubmitScore'] = function()
+            return SubmitScore()
         end
 
     }
@@ -98,7 +108,7 @@ function love.update(dt)
 end
 
 function love.draw()
--- Starting push to scale all the renders according to the window dimensions
+    -- Starting push to scale all the renders according to the window dimensions
     push:apply('start')
     gStateMachine:render()
     DisplayFPS()

@@ -6,6 +6,7 @@ function Level1:enter()
     --[[
         We're written "self." before the variable to make them local to the level so can't be used in other levels
     ]]
+    self.index = 1
 
     -- Create a new world with "Y" component gravity of 15000
     self.world = love.physics.newWorld(0, 1500)
@@ -69,6 +70,7 @@ end
 function Level1:update(dt)
     self.player.x, self.player.y = self.player.body:getPosition()
     if self.playing then
+        self.timer = self.timer + fixedDT
         if self.player.y > Window.height then
             self.playing = false
             if self.timer < LoadScore(1) then
@@ -79,7 +81,6 @@ function Level1:update(dt)
                 })
             end
         end
-        self.timer = self.timer + fixedDT
     end
     self.world:update(fixedDT)
     if options.BallTrail then

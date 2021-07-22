@@ -72,7 +72,20 @@ function PlayState:update(dt)
             }, 20, 646, 90, 50).hit then
                 gStateMachine:change('levelSelect')
                 -- Plays the main menu sound when leaving play state
+                sounds['play']:stop()
                 sounds['main']:play()
+            end
+            if highScored then
+                if self.suit:Button('Upload Score', {
+                    font = fonts['Bold32']
+                }, Window.width / 2 - 126, 553, 253, 80).hit then
+                    sounds['play']:stop()
+                    sounds['main']:play()
+                    gStateMachine:change('SubmitScore', {
+                        level = self.LevelManager.current.index,
+                        score = self.LevelManager.current.timer
+                    })
+                end
             end
         end
     end
@@ -94,6 +107,6 @@ function PlayState:render()
     ww = imgui.SliderFloat("Width", ww, 0.0, 500);
     hh = imgui.SliderFloat("Height", hh, 0.0, 500);
     rr = imgui.SliderFloat("Round Edge", rr, 0, 0.183);
-    -- imgui.Render();
+    imgui.Render();
 end
 

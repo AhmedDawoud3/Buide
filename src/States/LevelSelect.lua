@@ -4,23 +4,6 @@ LevelSelect = Class {
 local Timer = require "lib.knife.timer"
 local Easing = require 'lib.easing'
 
-local pages = {{
-    active = true,
-    levels = {{
-        highScore = LoadScore(1),
-        selected = false
-    }, {
-        highScore = LoadScore(2),
-        selected = false
-    }, false, false, false, false}
-}, {
-    active = false,
-    levels = {false, false, false, false, false, false}
-}, {
-    active = false,
-    levels = {false, false, false, false, false, false}
-}}
-
 local xx, yy, ww, hh, rr, xO, yO = 0, 0, 0, 0, 0, 0, 0
 
 demoImage = love.graphics.newImage('assets/images/Levels/Demo.png')
@@ -34,7 +17,24 @@ function LevelSelect:enter()
     self.suit = Suit.new()
     self.pageIndex = 1
     self.selectedLevel = nil
-    for i, v in ipairs(pages) do
+
+    self.pages = {{
+        active = true,
+        levels = {{
+            highScore = LoadScore(1),
+            selected = false
+        }, {
+            highScore = LoadScore(2),
+            selected = false
+        }, false, false, false, false}
+    }, {
+        active = false,
+        levels = {false, false, false, false, false, false}
+    }, {
+        active = false,
+        levels = {false, false, false, false, false, false}
+    }}
+    for i, v in ipairs(self.pages) do
         if v.active then
             self.activePage = v
             self.pageIndex = i
@@ -52,7 +52,7 @@ function LevelSelect:update(dt)
     }, 50, 600, 240, 60).hit or love.keyboard.wasPressed('escape') then
         gStateMachine:change('start')
     end
-    if self.suit:Button('Start', {
+    if self.suit:Button('Play', {
         font = fonts['Semibold40'],
         color = self.selectedLevel and {
             normal = {
@@ -83,8 +83,8 @@ function LevelSelect:update(dt)
         }
 
     }, Window.width - 240 - 50, 600, 240, 60).hit and self.selectedLevel then
-        gStateMachine:change('play', {
-            level = ('Level' .. self.selectedLevel)
+        gStateMachine:change('LevelConfirm', {
+            level = self.selectedLevel
         })
     end
 
@@ -107,13 +107,13 @@ function LevelSelect:render()
     love.graphics.clear(0.1, 0.12, 0.15)
 
     -- Draw Current Page
-    for i, v in ipairs(pages) do
+    for i, v in ipairs(self.pages) do
         if v.active then
             love.graphics.setColor(0.45, 0.45, 0.45, 1)
         else
             love.graphics.setColor(0.25, 0.27, 0.3, 1)
         end
-        love.graphics.circle('fill', Window.width / 2 - (math.floor(#pages / 2) + 1 - i) * 27, 633, 8.764)
+        love.graphics.circle('fill', Window.width / 2 - (math.floor(#self.pages / 2) + 1 - i) * 27, 633, 8.764)
     end
 
     love.graphics.translate(levelsOffset.value, 0)
@@ -181,10 +181,10 @@ function LevelSelect:exit()
     end
     self.pageIndex = 1
     self.selectedLevel = nil
-    for i, v in ipairs(pages) do
+    for i, v in ipairs(self.pages) do
         v.active = false
     end
-    pages[1].active = true
+    self.pages[1].active = true
 end
 
 function LevelSelect:SelectLevel(level)
@@ -198,18 +198,18 @@ end
 
 function LevelSelect:NextPage()
     -- Timer.clear()
-    if levelsOffset.value == 0 and self.pageIndex ~= #pages then
+    if levelsOffset.value == 0 and self.pageIndex ~= #self.pages then
         Timer.tween(0.5, {
             [levelsOffset] = {
                 value = 1180
             }
         }):ease(Easing.inCubic):finish(function()
             levelsOffset.value = -1180
-            pages[self.pageIndex].active = false
-            if self.pageIndex ~= #pages then
+            self.pages[self.pageIndex].active = false
+            if self.pageIndex ~= #self.pages then
                 self.pageIndex = self.pageIndex + 1
-                self.activePage = pages[self.pageIndex]
-                pages[self.pageIndex].active = true
+                self.activePage = self.pages[self.pageIndex]
+                self.pages[self.pageIndex].active = true
             end
             Timer.tween(0.5, {
                 [levelsOffset] = {
@@ -229,11 +229,11 @@ function LevelSelect:PreviousPage()
             }
         }):ease(Easing.inCubic):finish(function()
             levelsOffset.value = -1180
-            pages[self.pageIndex].active = false
+            self.pages[self.pageIndex].active = false
             if self.pageIndex ~= 1 then
                 self.pageIndex = self.pageIndex - 1
-                self.activePage = pages[self.pageIndex]
-                pages[self.pageIndex].active = true
+                self.activePage = self.pages[self.pageIndex]
+                self.pages[self.pageIndex].active = true
             end
             Timer.tween(0.5, {
                 [levelsOffset] = {

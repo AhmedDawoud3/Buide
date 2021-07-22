@@ -12,6 +12,7 @@ function Level2:enter()
     --[[
         We're written "self." before the variable to make them local to the level so can't be used in other levels
     ]]
+    self.index = 2
 
     -- Create a new world with "Y" component gravity of 15000
     self.world = love.physics.newWorld(0, 1500)

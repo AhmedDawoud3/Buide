@@ -12,9 +12,12 @@ Class = require 'lib/class'
 -- Vector Libirary Will Enable us to use 2d vectors
 Vector = require 'lib/vector'
 
+require 'src/Networking/NetworkManager'
+
 -- Suit Libirary (UI)
 Suit = require 'lib/suit'
 
+-- Util functions
 require 'src/Utils'
 
 -- Constants (eg. Window Width and Height)
@@ -47,3 +50,5 @@ require 'src/States/AboutState'
 require 'src/States/OptionsState'
 require 'src/States/LevelSelect'
 require 'src/States/PauseState'
+require 'src/States/LevelConfirm'
+require 'src/States/SubmitScore'
