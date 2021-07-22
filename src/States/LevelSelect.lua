@@ -201,10 +201,10 @@ function LevelSelect:NextPage()
     if levelsOffset.value == 0 and self.pageIndex ~= #self.pages then
         Timer.tween(0.5, {
             [levelsOffset] = {
-                value = 1180
+                value = -1180
             }
         }):ease(Easing.inCubic):finish(function()
-            levelsOffset.value = -1180
+            levelsOffset.value = 1180
             self.pages[self.pageIndex].active = false
             if self.pageIndex ~= #self.pages then
                 self.pageIndex = self.pageIndex + 1
