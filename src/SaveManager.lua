@@ -14,6 +14,18 @@ function LoadSaveFile()
         if data.FullScreen == nil then
             data.FullScreen = DefaultDate.FullScreen
         end
+        if data.music == nil then
+            data.music = DefaultDate.music
+        end
+        if data.SFX == nil then
+            data.SFX = DefaultDate.SFX
+        end
+        if data.musicValue == nil then
+            data.musicValue = DefaultDate.musicValue
+        end
+        if data.SFXValue == nil then
+            data.SFXValue = DefaultDate.SFXValue
+        end
         return data
     end
     return DefaultDate

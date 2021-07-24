@@ -10,6 +10,10 @@ function Level1:enter()
 
     -- Create a new world with "Y" component gravity of 15000
     self.world = love.physics.newWorld(0, 1500)
+    self.world:setCallbacks(function()
+        sounds["clack"]:stop()
+        sounds["clack"]:play()
+    end)
 
     -- Make a table to keep track of the player's {body, shape and fixture}
     self.player = {}

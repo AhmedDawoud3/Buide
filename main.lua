@@ -8,6 +8,12 @@
     https://freesound.org/people/Erokia/sounds/183881/
     https://freesound.org/people/Erokia/sounds/477924/
 ]] --
+
+
+--[[
+    MOUSE SHIFT
+]]
+
 require 'src.Dependencies'
 require "imgui"
 
@@ -95,6 +101,11 @@ function love.load()
 
     -- play our music outside of all states and set it to looping
     sounds['main']:play()
+
+    sounds['main']:setVolume(options.music and options.musicValue or 0)
+    sounds['play']:setVolume(options.music and options.musicValue or 0)
+    sounds['clack']:setVolume(options.SFXValue and options.SFXValue or 0)
+
 end
 
 function love.update(dt)

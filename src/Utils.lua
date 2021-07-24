@@ -47,15 +47,50 @@ function tprint(tbl, indent)
     toprint = toprint .. string.rep(" ", indent - 2) .. "}"
     print(toprint)
 end
+-- return formated tables to print them
+function tprintR(tbl, indent)
+    if not indent then
+        indent = 0
+    end
+    local toprint = string.rep(" ", indent) .. "{\r\n"
+    indent = indent + 2
+    for k, v in pairs(tbl) do
+        toprint = toprint .. string.rep(" ", indent)
+        if (type(k) == "number") then
+            toprint = toprint .. "[" .. k .. "] = "
+        elseif (type(k) == "string") then
+            toprint = toprint .. k .. "= "
+        end
+        if (type(v) == "number") then
+            toprint = toprint .. v .. ",\r\n"
+        elseif (type(v) == "string") then
+            toprint = toprint .. "\"" .. v .. "\",\r\n"
+        elseif (type(v) == "table") then
+            toprint = toprint .. tprint(v, indent + 2) .. ",\r\n"
+        else
+            toprint = toprint .. "\"" .. tostring(v) .. "\",\r\n"
+        end
+    end
+    toprint = toprint .. string.rep(" ", indent - 2) .. "}"
+    return toprint
+end
 
 -- Split stings with "sep"
 function Split(inputstr, sep)
     if sep == nil then
-            sep = "%s"
+        sep = "%s"
     end
-    local t={}
-    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-            table.insert(t, str)
+    local t = {}
+    for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
+        table.insert(t, str)
     end
     return t
+end
+
+function getAngle(x1, y1, x2, y2)
+    return math.atan2(y2 - y1, x2 - x1)
+end
+
+function GetDistance(x1, y1, x2, y2)
+    return math.sqrt((x1 - x2) ^ 2 + (y1 - y2) ^ 2)
 end

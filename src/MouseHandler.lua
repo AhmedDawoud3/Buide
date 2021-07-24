@@ -10,7 +10,6 @@ end
 
 function MouseHandler:update(dt, level)
     self.pos = Vector(push:toGame(love.mouse.getPosition()))
-
     if not level.playing then
         self:Cancel()
     end
@@ -23,7 +22,25 @@ function MouseHandler:update(dt, level)
         self:Cancel()
     end
     if self.isDown and level.playing then
+        local angleA
         self.tempRect.en = self.pos
+        angleA = getAngle(self.tempRect.st.x, self.tempRect.st.y, self.tempRect.en.x, self.tempRect.en.y) +
+                     3.14159265359
+        angleA = angleA * 180 / 3.14159265359
+        if love.keyboard.isDown("lshift") or love.keyboard.isDown("rshift") then
+            local mag = GetDistance(self.tempRect.st.x, self.tempRect.st.y, self.tempRect.en.x, self.tempRect.en.y)
+            if angleA < 45 or angleA > 315 then
+                angleA = 0
+            elseif angleA < 135 then
+                angleA = 90
+            elseif angleA < 245 then
+                angleA = 180
+            elseif angleA < 315 then
+                angleA = 270
+            end
+            self.tempRect.en = Vector(self.tempRect.st.x + mag * cos(-3.14159265359 + angleA / (180 / 3.14159265359)),
+                self.tempRect.st.y + mag * sin(-3.14159265359 + angleA / (180 / 3.14159265359)))
+        end
     end
     if love.mouse.wasReleased(1) and self.isDown then
         self:AddToGame(level)
@@ -131,8 +148,4 @@ function MouseHandler:AddToGame(level)
         level:CreateCustomRectangle(x, y, size, height, rotation * (180 / 3.14159265))
     end
     self.isDown = false
-end
-
-function getAngle(x1, y1, x2, y2)
-    return math.atan2(y2 - y1, x2 - x1)
 end

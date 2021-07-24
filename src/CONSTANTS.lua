@@ -10,7 +10,8 @@ Screen = {
 
 sounds = {
     ['main'] = love.audio.newSource('assets/sounds/main.wav', 'static'),
-    ['play'] = love.audio.newSource('assets/sounds/play.wav', 'static')
+    ['play'] = love.audio.newSource('assets/sounds/play.wav', 'static'),
+    ['clack'] = love.audio.newSource('assets/sounds/clack.wav', 'static')
 }
 sounds['main']:setLooping(true)
 sounds['play']:setLooping(true)
@@ -26,7 +27,11 @@ BallColors = {{0.99, 0.85, 0}, {0.65, 0.23, 0.22}, {0.59, 0.75, 0.2}, {0.29, 0.7
 DefaultDate = {
     BallTrail = true,
     BallColor = BallColors[1],
-    FullScreen = false
+    FullScreen = false,
+    music = true,
+    SFX = true,
+    musicValue = 1,
+    SFXValue = 1,
 }
 ALPHABET = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
             'v', 'w', 'x', 'y', 'z'}

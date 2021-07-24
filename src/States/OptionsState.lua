@@ -2,11 +2,12 @@ OptionsState = Class {
     __includes = BaseState
 }
 
-local xx, yy, ww, hh, rr = 0, 0, 0, 0, 0
+local xx, xo, yy, yo, ww, hh, rr = 0, 0, 0, 0, 0, 0, 0
 
 local noTrailImage = love.graphics.newImage('assets/images/noTrail.png')
 local TrailImage = love.graphics.newImage('assets/images/trail.png')
-
+local musicSlider
+local SFXValue
 function OptionsState:enter(params)
     self.suit = Suit.new()
     settingsOption = {
@@ -15,8 +16,27 @@ function OptionsState:enter(params)
         },
         FullScreen = {
             checked = options.FullScreen
+        },
+        music = {
+            checked = options.music
+        },
+        SFX = {
+            checked = options.SFX
         }
     }
+    musicSlider = {
+        value = options.musicValue,
+        min = 0,
+        max = 1,
+        step = 0.1
+    }
+    SFXValue = {
+        value = options.SFXValue,
+        min = 0,
+        max = 1,
+        step = 0.1
+    }
+
 end
 function OptionsState:update(dt)
     if self.suit:Button('Back', {
@@ -41,6 +61,9 @@ function OptionsState:update(dt)
         NextBallColor()
     end
 
+    --[[
+        Full Screen
+    ]]
     if self.suit:Checkbox(settingsOption.FullScreen, 1038, 130, 50, 39).hit then
         options.FullScreen = settingsOption.FullScreen.checked
         if options.FullScreen then
@@ -58,6 +81,52 @@ function OptionsState:update(dt)
         end
     end
 
+    --[[
+        Music
+    ]]
+    if self.suit:Checkbox(settingsOption.music, 1038, 230, 50, 39).hit then
+        options.music = settingsOption.music.checked
+        if options.music then
+            sounds['main']:setVolume(musicSlider.value)
+            sounds['play']:setVolume(musicSlider.value)
+        else
+            sounds['main']:setVolume(0)
+            sounds['play']:setVolume(0)
+        end
+    end
+
+    --[[
+        SFX
+    ]]
+    if self.suit:Checkbox(settingsOption.SFX, 1038, 330, 50, 39).hit then
+        options.SFX = settingsOption.SFX.checked
+        if options.SFX then
+            sounds['clack']:setVolume(musicSlider.value)
+        else
+            sounds['clack']:setVolume(0)
+        end
+    end
+
+    --[[
+        Music Slider
+    ]]
+    if self.suit:Slider(musicSlider, 55, 454, 185, 50).changed then
+        options.musicValue = musicSlider.value
+        if options.music then
+            sounds['main']:setVolume(musicSlider.value)
+            sounds['play']:setVolume(musicSlider.value)
+        end
+    end
+
+    --[[
+        VFX Slider
+    ]]
+    if self.suit:Slider(SFXValue, 315, 454, 185, 50).changed then
+        options.SFXValue = SFXValue.value
+        if options.SFX then
+            sounds['clack']:setVolume(SFXValue.value)
+        end
+    end
 end
 
 function OptionsState:render()
@@ -109,23 +178,50 @@ function OptionsState:render()
     ]]
     -- Big Rectangle
     love.graphics.rectangle('line', 817, 113, 287, 71, 13, 13)
-
     -- The Word "Full Screen" 
     love.graphics.setFont(fonts['Bold32'])
     love.graphics.print("Full Screen", 833, 130)
 
-    -- Description
-    love.graphics.setFont(fonts['Regular13'])
-    love.graphics.printf("Change The Colour of the ball", 0, 170, Window.width, 'center')
+    --[[
+        Music
+    ]]
+    love.graphics.rectangle('line', 817, 213, 287, 71, 13, 13)
+    -- The Word "Full Screen" 
+    love.graphics.setFont(fonts['Bold32'])
+    love.graphics.print("Music", 833, 230)
+
+    --[[
+        Music Toggle
+    ]]
+    love.graphics.rectangle('line', 817, 313, 287, 71, 13, 13)
+    -- The Word "Full Screen" 
+    love.graphics.setFont(fonts['Bold32'])
+    love.graphics.print("SFX", 833, 330)
+
+    --[[
+        Music Slider
+    ]]
+    love.graphics.rectangle('line', 38, 402, 221, 108, 13, 13)
+    love.graphics.setFont(fonts['Bold32'])
+    love.graphics.print("Music: " .. math.floor(musicSlider.value * 100) .. "%", 38 + 11, 402 + 18)
+
+    --[[
+        SFX Slider
+    ]]
+    love.graphics.rectangle('line',298, 402, 221, 108, 13, 13)
+    love.graphics.setFont(fonts['Bold32'])
+    love.graphics.print("SFX: " .. math.floor(SFXValue.value * 100) .. "%", 298 + 11, 402 + 18)
 
     -- IMGUI
     love.graphics.setColor(1, 1, 1, 1)
-    xx = imgui.SliderFloat("X", xx, 0.0, 1280);
-    yy = imgui.SliderFloat("Y", yy, 0.0, 500);
-    ww = imgui.SliderFloat("Width", ww, 0.0, 500);
-    hh = imgui.SliderFloat("Height", hh, 0.0, 500);
-    rr = imgui.SliderFloat("Round Edge", rr, 0.0, 100);
-    -- imgui.Render();
+    xx = imgui.SliderFloat("X", xx, 38, 700);
+    -- xo = imgui.SliderFloat("X O", xo, 0.0, 50);
+    yy = imgui.SliderFloat("Y", yy, 420, 480);
+    -- yo = imgui.SliderFloat("Y O", yo, 0, 500);
+    ww = imgui.SliderFloat("Width", ww, 150, 250);
+    hh = imgui.SliderFloat("Height", hh, 0.0, 50);
+    -- rr = imgui.SliderFloat("Round Edge", rr, 0.0, 100);
+    imgui.Render();
 end
 
 function OptionsState:exit()
