@@ -61,6 +61,10 @@ function OptionsState:update(dt)
         NextBallColor()
     end
 
+    if self.suit:Button('Report an Issue', {font = fonts['Semibold40']}, Window.width - 350 - 50, 600, 350, 60).hit then
+        love.system.openURL("mailto:adawoud1000@hotmail.com")
+    end
+    
     --[[
         Full Screen
     ]]

@@ -16,6 +16,9 @@ function AboutState:update(dt)
     if self.suit:Button('Back', {font = fonts['Semibold40']}, 50, 600, 240, 60).hit or love.keyboard.wasPressed('escape') then
         gStateMachine:change('start')
     end
+    if self.suit:Button('Report an Issue', {font = fonts['Semibold40']}, Window.width - 350 - 50, 600, 350, 60).hit then
+        love.system.openURL("mailto:adawoud1000@hotmail.com")
+    end
 end
 
 function AboutState:render()
