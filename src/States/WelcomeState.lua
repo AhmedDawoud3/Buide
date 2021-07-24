@@ -12,12 +12,9 @@ local Opacities = {
     love = 0
 }
 local loveLogo = love.graphics.newImage('assets/images/love-logo.png')
-
+local finished = 0
 function WelcomeState:enter()
     Timer.tween(0.5, {
-        [Opacities] = {
-            Buide = 0
-        }
     }):ease(Easing.outCubic):finish(function()
         Timer.tween(1, {
             [Opacities] = {
@@ -39,6 +36,7 @@ function WelcomeState:enter()
                             love = 1
                         }
                     }):ease(Easing.inSine):finish(function()
+                        finished = finished + 1
                         Timer.tween(1, {
                             [Opacities] = {
                                 Buide = 0,
@@ -47,6 +45,7 @@ function WelcomeState:enter()
                                 love = 0
                             }
                         }):ease(Easing.outCubic):finish(function()
+                            finished = finished + 1
                             gStateMachine:change('start')
                         end)
                     end)
@@ -57,6 +56,23 @@ function WelcomeState:enter()
 end
 
 function WelcomeState:update(dt)
+    if love.mouse.wasPressed(1) then
+        if finished == 0 then
+            finished = finished + 1
+            Opacities.Buide = 1
+            Opacities.AhmedDawoud = 1
+            Opacities.love = 1
+            Opacities.version = 1
+        elseif finished == 1 then
+            Opacities = {
+                Buide = 0,
+                AhmedDawoud = 0,
+                version = 0,
+                love = 0
+            }
+            gStateMachine:change('start')
+        end
+    end
     Timer.update(dt)
 end
 
