@@ -40,6 +40,7 @@ function love.load()
         ['Semibold40'] = love.graphics.newFont('fonts/MontserratSemibold.ttf', 40),
         ['ExtraBold60'] = love.graphics.newFont('fonts/MontserratExtrabold.ttf', 60),
         ['ExtraBold100'] = love.graphics.newFont('fonts/MontserratExtrabold.ttf', 100),
+        ['ExtraBold150'] = love.graphics.newFont('fonts/MontserratExtrabold.ttf', 150),
         ['ExtraBoldItalic100'] = love.graphics.newFont('fonts/MontserratExtraboldItalic.ttf', 100),
         ['ExtraBoldItalic60'] = love.graphics.newFont('fonts/MontserratExtraboldItalic.ttf', 60),
         ['symbol'] = love.graphics.newFont('fonts/symbola.ttf', 30)
@@ -83,10 +84,13 @@ function love.load()
         end,
         ['SubmitScore'] = function()
             return SubmitScore()
+        end,
+        ['welcome'] = function()
+            return WelcomeState()
         end
 
     }
-    gStateMachine:change('start')
+    gStateMachine:change('welcome')
 
     -- Load The Levels thumbnail for level select screen
     levelsImages = {love.graphics.newImage('assets/images/Levels/1.png'),
@@ -99,8 +103,6 @@ function love.load()
     love.mouse.keysPressed = {}
     love.mouse.keysReleased = {}
 
-    -- play our music outside of all states and set it to looping
-    sounds['main']:play()
 
     sounds['main']:setVolume(options.music and options.musicValue or 0)
     sounds['play']:setVolume(options.music and options.musicValue or 0)
