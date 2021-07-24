@@ -1,3 +1,6 @@
+Game = {
+    Version = "1.0"
+}
 Window = {
     width = 1280,
     height = 720

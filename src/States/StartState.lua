@@ -50,6 +50,8 @@ function StartState:render()
     love.graphics.clear(0.1, 0.12, 0.15)
     love.graphics.setFont(fonts['ExtraBold100'])
     love.graphics.printf("Buide", 0, 125, Window.width, 'center')
+    love.graphics.setFont(fonts['Semibold40'])
+    love.graphics.print("Version " .. Game.Version, 35, 35)
     self.suit:draw()
 
 end
