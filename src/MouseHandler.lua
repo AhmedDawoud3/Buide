@@ -2,6 +2,8 @@ MouseHandler = Class {x, y}
 
 local sin = math.sin
 local cos = math.cos
+local adderAngle = 0
+local oldAngle = 0
 
 function MouseHandler:init()
     self.isDown = false
@@ -38,9 +40,23 @@ function MouseHandler:update(dt, level)
             elseif angleA < 315 then
                 angleA = 270
             end
+            if love.mouse.scrolled == -1 then
+                adderAngle = adderAngle + 5.625
+            elseif love.mouse.scrolled == 1 then
+                adderAngle = adderAngle - 5.625
+            end
+            if oldAngle ~= angleA then
+                oldAngle = angleA
+                adderAngle = 0
+            end
+            angleA = angleA + adderAngle
             self.tempRect.en = Vector(self.tempRect.st.x + mag * cos(-3.14159265359 + angleA / (180 / 3.14159265359)),
                 self.tempRect.st.y + mag * sin(-3.14159265359 + angleA / (180 / 3.14159265359)))
+        else
+            adderAngle = 0
         end
+    else
+        adderAngle = 0
     end
     if love.mouse.wasReleased(1) and self.isDown then
         self:AddToGame(level)

@@ -29,25 +29,25 @@ end
 function StartState:update(dt)
     if self.suit:Button('Play', {
         font = fonts['Semibold40']
-    }, Window.width / 2 - 120, Window.height / 2 + 30, 240, 60).hit and RectOpacity[1] < 0.3 then
+    }, Window.width / 2 - 120, Window.height / 2 + 30, 240, 60).hit and RectOpacity[1] <0.5 then
         gStateMachine:change('levelSelect')
     end
 
     if self.suit:Button('Exit', {
         font = fonts['Semibold40']
-    }, Window.width / 2 - 120, Window.height / 2 + 150, 240, 60).hit and RectOpacity[1] < 0.3 then
+    }, Window.width / 2 - 120, Window.height / 2 + 150, 240, 60).hit and RectOpacity[1] <0.5 then
         love.event.quit()
     end
 
     if self.suit:Button('Options', {
         font = fonts['Semibold40']
-    }, 50, 600, 240, 60).hit and RectOpacity[1] < 0.3 then
+    }, 50, 600, 240, 60).hit and RectOpacity[1] <0.5 then
         gStateMachine:change('options')
     end
 
     if self.suit:Button('About', {
         font = fonts['Semibold40']
-    }, Window.width - 240 - 50, 600, 240, 60).hit and RectOpacity[1] < 0.3 then
+    }, Window.width - 240 - 50, 600, 240, 60).hit and RectOpacity[1] <0.5 then
         gStateMachine:change('about')
     end
     Timer.update(dt)

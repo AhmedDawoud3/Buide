@@ -102,6 +102,7 @@ function love.load()
     love.keyboard.keysPressed = {}
     love.mouse.keysPressed = {}
     love.mouse.keysReleased = {}
+    love.mouse.scrolled = 0
 
 
     sounds['main']:setVolume(options.music and options.musicValue or 0)
@@ -126,11 +127,12 @@ function love.draw()
     gStateMachine:render()
     DisplayFPS()
     push:apply('end')
-
+    
     -- reset keys pressed
     love.keyboard.keysPressed = {}
     love.mouse.keysPressed = {}
     love.mouse.keysReleased = {}
+    love.mouse.scrolled = 0
 end
 
 function love.resize(w, h)
@@ -146,9 +148,9 @@ end
 ]]
 function love.keypressed(key)
     -- add to our table of keys pressed this frame
-    love.keyboard.keysPressed[key] = true
     imgui.KeyPressed(key)
     if not imgui.GetWantCaptureKeyboard() then
+        love.keyboard.keysPressed[key] = true
         -- Pass event to the game
     end
 end
@@ -160,17 +162,17 @@ end
 ]]
 
 function love.mousepressed(x, y, key)
-    love.mouse.keysPressed[key] = true
     imgui.MousePressed(key)
     if not imgui.GetWantCaptureMouse() then
+        love.mouse.keysPressed[key] = true
         -- Pass event to the game
     end
 end
 
 function love.mousereleased(x, y, key)
-    love.mouse.keysReleased[key] = true
     imgui.MouseReleased(key)
     if not imgui.GetWantCaptureMouse() then
+        love.mouse.keysReleased[key] = true
         -- Pass event to the game
     end
 end
@@ -215,7 +217,7 @@ end
 function love.wheelmoved(x, y)
     imgui.WheelMoved(y)
     if not imgui.GetWantCaptureMouse() then
-        -- Pass event to the game
+        love.mouse.scrolled = y
     end
 end
 
