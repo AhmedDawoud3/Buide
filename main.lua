@@ -118,6 +118,7 @@ function love.update(dt)
 end
 
 function love.draw()
+
     -- Starting push to scale all the renders according to the window dimensions
     push:apply('start')
     gStateMachine:render()

@@ -14,8 +14,8 @@ local Opacities = {
 local loveLogo = love.graphics.newImage('assets/images/love-logo.png')
 local finished = 0
 function WelcomeState:enter()
-    Timer.tween(0.5, {
-    }):ease(Easing.outCubic):finish(function()
+    self.Name = "Welcome"
+    Timer.tween(0.5, {}):ease(Easing.outCubic):finish(function()
         Timer.tween(1, {
             [Opacities] = {
                 Buide = 1
@@ -46,7 +46,9 @@ function WelcomeState:enter()
                             }
                         }):ease(Easing.outCubic):finish(function()
                             finished = finished + 1
-                            gStateMachine:change('start')
+                            if gStateMachine.current.Name then
+                                gStateMachine:change('start')
+                            end
                         end)
                     end)
                 end)
