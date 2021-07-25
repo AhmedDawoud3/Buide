@@ -28,6 +28,9 @@ function PlayState:enter(params)
             end,
             ['Level2'] = function()
                 return Level2()
+            end,
+            ['Level3'] = function()
+                return Level3()
             end
         }
 

@@ -8,13 +8,9 @@
     https://freesound.org/people/Erokia/sounds/183881/
     https://freesound.org/people/Erokia/sounds/477924/
 ]] --
-
-
 --[[
     MOUSE SHIFT
-]]
-
-require 'src.Dependencies'
+]] require 'src.Dependencies'
 require "imgui"
 
 function love.load()
@@ -94,7 +90,8 @@ function love.load()
 
     -- Load The Levels thumbnail for level select screen
     levelsImages = {love.graphics.newImage('assets/images/Levels/1.png'),
-                    love.graphics.newImage('assets/images/Levels/2.png')}
+                    love.graphics.newImage('assets/images/Levels/2.png'),
+                    love.graphics.newImage('assets/images/Levels/3.png')}
 
     -- a table we'll use to keep track of which keys have been pressed this
     -- frame, to get around the fact that Love's default callback won't let us
@@ -103,7 +100,6 @@ function love.load()
     love.mouse.keysPressed = {}
     love.mouse.keysReleased = {}
     love.mouse.scrolled = 0
-
 
     sounds['main']:setVolume(options.music and options.musicValue or 0)
     sounds['play']:setVolume(options.music and options.musicValue or 0)
@@ -127,7 +123,7 @@ function love.draw()
     gStateMachine:render()
     DisplayFPS()
     push:apply('end')
-    
+
     -- reset keys pressed
     love.keyboard.keysPressed = {}
     love.mouse.keysPressed = {}

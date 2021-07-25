@@ -26,7 +26,10 @@ function LevelSelect:enter()
         }, {
             highScore = LoadScore(2),
             selected = false
-        }, false, false, false, false}
+        }, {
+            highScore = LoadScore(3),
+            selected = false
+        }, false, false, false}
     }, {
         active = false,
         levels = {false, false, false, false, false, false}

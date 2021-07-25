@@ -53,7 +53,7 @@ function LevelConfirm:render()
     ]]
     love.graphics.setFont(fonts['Bold32'])
     rgb(219, 87, 33)
-    love.graphics.print("Best Time: " .. tostring(TimeGSUB(LoadScore(1), 2)), 67, 134)
+    love.graphics.print("Best Time: " .. tostring(TimeGSUB(LoadScore(self.level), 2)), 67, 134)
 
     --[[
         Leaderboard via internet

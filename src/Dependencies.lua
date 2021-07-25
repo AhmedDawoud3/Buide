@@ -41,6 +41,7 @@ require 'src/Levels/LevelManager'
 require 'src/Levels/BaseLevel'
 require 'src/Levels/Level1'
 require 'src/Levels/Level2'
+require 'src/Levels/Level3'
 
 -- State
 require 'src/States/BaseState'
