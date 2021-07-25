@@ -3,8 +3,6 @@ local Easing = require 'lib.easing'
 SubmitScore = Class {
     __includes = BaseState
 }
-local xx, yy, ww, hh, rr, xO, yO = 0, 0, 0, 0, 0, 0, 0
-local rr, gg, bb = 0, 0, 0
 local submitted = false
 local textInput = {
     text = "",
@@ -19,9 +17,14 @@ local Opacities = {
     screenFill = 0,
     outroRect = 0
 }
-local submitted = false
 
 function SubmitScore:enter(params)
+    submitted = false
+    Opacities = {
+        cursor = 0,
+        screenFill = 0,
+        outroRect = 0
+    }
     self.level = params.level
     self.score = params.score
     self.suit = Suit.new()
@@ -136,18 +139,6 @@ function SubmitScore:render()
     love.graphics.setColor(0.1, 0.12, 0.15, Opacities.outroRect)
     love.graphics.rectangle("fill", 0, 0, Window.width, Window.height)
 
-    rgb(255, 255, 255)
-    xx = imgui.SliderFloat("X", xx, 0, 1280);
-    yy = imgui.SliderFloat("Y", yy, 0, 720);
-    xO = imgui.SliderFloat("X Offset", xO, -10, 10);
-    yO = imgui.SliderFloat("Y Offset", yO, -10, 10);
-    ww = imgui.SliderFloat("Width", ww, 0.0, 500);
-    hh = imgui.SliderFloat("Height", hh, 0.0, 500);
-    rr = imgui.SliderFloat("Round Edge", rr, 0, 100);
-    rr = imgui.SliderFloat("R", rr, 0, 255);
-    gg = imgui.SliderFloat("G", gg, 0, 255);
-    bb = imgui.SliderFloat("B", bb, 0, 255);
-    imgui.Render();
 end
 
 function SubmitScore:UpdateText()

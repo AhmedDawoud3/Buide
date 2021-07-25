@@ -8,8 +8,8 @@ local Codes = {{
     publicCode = '60fd2e7c8f40bb8ea0452a9a'
 },
 {
-    privateCode = 'OkSpx4B3j0yVitEZbe40VgvN_VQf',
-    publicCode = '60fd3e6d8f40bb8ea045441d'
+    privateCode = 'YDePC8j0kkqtpShGM8cOtwcOjzecPTz0-Pau36dr_CCA',
+    publicCode = '60fd4b8b8f40bb8ea0455b73'
 }}
 local webURL = 'http://dreamlo.com/lb/'
 function DownloadHighScores(level)
@@ -20,7 +20,7 @@ function DownloadHighScores(level)
     if not body then
         return false
     end
-    return body
+    return urldecode(body)
 end
 
 function UploadNewHighScore(name, level, score)
