@@ -89,7 +89,6 @@ function Level2:enter()
     self:CreatePoly({1160, 161, 1280, 161, 1280, 347})
 
     -- Create The Complex Shape
-    self:CreatePoly({1199, 601, 1218, 648, 1195, 647, 1176, 627})
     self:CreatePoly({1218, 648, 1278, 690, 1211, 690})
     self:CreatePoly({1169, 505, 1230, 444, 1205, 576, 1172, 564})
     self:CreatePoly({1185, 383, 1233, 376, 1187, 396})
