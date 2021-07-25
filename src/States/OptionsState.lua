@@ -2,7 +2,6 @@ OptionsState = Class {
     __includes = BaseState
 }
 
-local xx, xo, yy, yo, ww, hh, rr = 0, 0, 0, 0, 0, 0, 0
 
 local noTrailImage = love.graphics.newImage('assets/images/noTrail.png')
 local TrailImage = love.graphics.newImage('assets/images/trail.png')
@@ -216,16 +215,6 @@ function OptionsState:render()
     love.graphics.setFont(fonts['Bold32'])
     love.graphics.print("SFX: " .. math.floor(SFXValue.value * 100) .. "%", 298 + 11, 402 + 18)
 
-    -- IMGUI
-    love.graphics.setColor(1, 1, 1, 1)
-    xx = imgui.SliderFloat("X", xx, 38, 700);
-    -- xo = imgui.SliderFloat("X O", xo, 0.0, 50);
-    yy = imgui.SliderFloat("Y", yy, 420, 480);
-    -- yo = imgui.SliderFloat("Y O", yo, 0, 500);
-    ww = imgui.SliderFloat("Width", ww, 150, 250);
-    hh = imgui.SliderFloat("Height", hh, 0.0, 50);
-    -- rr = imgui.SliderFloat("Round Edge", rr, 0.0, 100);
-    imgui.Render();
 end
 
 function OptionsState:exit()

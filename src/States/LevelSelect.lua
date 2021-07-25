@@ -4,8 +4,6 @@ LevelSelect = Class {
 local Timer = require "lib.knife.timer"
 local Easing = require 'lib.easing'
 
-local xx, yy, ww, hh, rr, xO, yO = 0, 0, 0, 0, 0, 0, 0
-
 demoImage = love.graphics.newImage('assets/images/Levels/Demo.png')
 
 local levelsOffset = {
@@ -163,15 +161,6 @@ function LevelSelect:render()
     self.suit:draw()
 
     love.graphics.setColor(1, 1, 1, 1)
-    xx = imgui.SliderFloat("X", xx, 0.0, 200);
-    levelsOffset.value = imgui.SliderFloat("levelsOffset Value", levelsOffset.value, -1280, 1280);
-    levelsOffset.dx = imgui.SliderFloat("levelsOffset DX", levelsOffset.dx, -50, 50);
-    yy = imgui.SliderFloat("Y", yy, 0.0, 200);
-    yO = imgui.SliderFloat("Y Offset", yO, 0, 200);
-    ww = imgui.SliderFloat("Width", ww, 0.0, 1);
-    hh = imgui.SliderFloat("Height", hh, 0.0, 1);
-    rr = imgui.SliderFloat("Round Edge", rr, 0, 0.183);
-    imgui.Render();
 end
 
 function LevelSelect:exit()
