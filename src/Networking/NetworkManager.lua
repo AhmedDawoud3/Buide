@@ -2,6 +2,10 @@ local http = require("socket.http")
 local Codes = {{
     privateCode = 'dciprxTJD0CYPpWusm8KFwXTghLDeWI0GD4ZxYlhy1Cw',
     publicCode = '60f5817d8f40bb8ea03a4f83'
+},
+{
+    privateCode = 'YKJG2D8YiEmnEceIpO__JQ9AcIkDaZV0CRpDcZZvEwnA',
+    publicCode = '60fd2e7c8f40bb8ea0452a9a'
 }}
 local webURL = 'http://dreamlo.com/lb/'
 function DownloadHighScores(level)
