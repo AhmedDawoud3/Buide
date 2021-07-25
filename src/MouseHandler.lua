@@ -24,13 +24,12 @@ function MouseHandler:update(dt, level)
         self:Cancel()
     end
     if self.isDown and level.playing then
-        local angleA
         self.tempRect.en = self.pos
         angleA = getAngle(self.tempRect.st.x, self.tempRect.st.y, self.tempRect.en.x, self.tempRect.en.y) +
                      3.14159265359
         angleA = angleA * 180 / 3.14159265359
         if love.keyboard.isDown("lshift") or love.keyboard.isDown("rshift") then
-            local mag = GetDistance(self.tempRect.st.x, self.tempRect.st.y, self.tempRect.en.x, self.tempRect.en.y)
+            mag = GetDistance(self.tempRect.st.x, self.tempRect.st.y, self.tempRect.en.x, self.tempRect.en.y)
             if angleA < 45 or angleA > 315 then
                 angleA = 0
             elseif angleA < 135 then
@@ -81,6 +80,13 @@ function MouseHandler:render(level)
         love.graphics.setLineWidth(10)
         love.graphics.line(start.x, start.y, en.x, en.y)
         love.graphics.setLineWidth(1)
+        if love.keyboard.isDown("lshift") or love.keyboard.isDown("rshift") then
+            love.graphics.setColor(0, 1, 0)
+            love.graphics.print(angleA .. '°', start.x + 5, start.y + 5)
+            love.graphics.setColor(1, 1, 1)
+            love.graphics.arc('line', start.x, start.y, mag, -3.14159265359,
+                -3.14159265359 + angleA / (180 / 3.14159265359))
+        end
     end
     if love.mouse.isDown(2) and not self.isDown then
         for i, v in ipairs(level.cBoxes) do
