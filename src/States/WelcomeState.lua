@@ -95,7 +95,7 @@ function WelcomeState:render()
     love.graphics.print("Version " .. Game.Version, 35, 625)
     -- IMGUI
     -- love.graphics.setColor(1, 1, 1, 1)
-    xx = imgui.SliderFloat("X", xx, 0, 100);
+    -- xx = imgui.SliderFloat("X", xx, 0, 100);
     -- xo = imgui.SliderFloat("X O", xo, 0.0, 50);
     -- yy = imgui.SliderFloat("Y", yy, 0, 1);
     -- yo = imgui.SliderFloat("Y O", yo, 0, 500);

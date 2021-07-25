@@ -11,7 +11,7 @@
 --[[
     MOUSE SHIFT
 ]] require 'src.Dependencies'
-require "imgui"
+-- require "imgui"
 
 function love.load()
     -- seed the RNG so that calls to random are always random
@@ -114,7 +114,7 @@ function love.update(dt)
     --[[
         IMGUI debugging
     ]]
-    imgui.NewFrame()
+    -- imgui.NewFrame()
 end
 
 function love.draw()
@@ -145,11 +145,11 @@ end
 ]]
 function love.keypressed(key)
     -- add to our table of keys pressed this frame
-    imgui.KeyPressed(key)
-    if not imgui.GetWantCaptureKeyboard() then
+    -- imgui.KeyPressed(key)
+    -- if not imgui.GetWantCaptureKeyboard() then
         love.keyboard.keysPressed[key] = true
         -- Pass event to the game
-    end
+    -- end
 end
 
 --[[
@@ -159,19 +159,19 @@ end
 ]]
 
 function love.mousepressed(x, y, key)
-    imgui.MousePressed(key)
-    if not imgui.GetWantCaptureMouse() then
+    -- imgui.MousePressed(key)
+    -- if not imgui.GetWantCaptureMouse() then
         love.mouse.keysPressed[key] = true
         -- Pass event to the game
-    end
+    -- end
 end
 
 function love.mousereleased(x, y, key)
-    imgui.MouseReleased(key)
-    if not imgui.GetWantCaptureMouse() then
+    -- imgui.MouseReleased(key)
+    -- if not imgui.GetWantCaptureMouse() then
         love.mouse.keysReleased[key] = true
         -- Pass event to the game
-    end
+    -- end
 end
 
 function love.keyboard.wasPressed(key)
@@ -187,35 +187,35 @@ function love.mouse.wasReleased(key)
 end
 
 function love.quit()
-    imgui.ShutDown();
+    -- imgui.ShutDown();
 end
 
 function love.textinput(t)
-    imgui.TextInput(t)
-    if not imgui.GetWantCaptureKeyboard() then
-        -- Pass event to the game
-    end
+    -- imgui.TextInput(t)
+    -- if not imgui.GetWantCaptureKeyboard() then
+    --     -- Pass event to the game
+    -- end
 end
 
 function love.keyreleased(key)
-    imgui.KeyReleased(key)
-    if not imgui.GetWantCaptureKeyboard() then
+    -- imgui.KeyReleased(key)
+    -- if not imgui.GetWantCaptureKeyboard() then
         -- Pass event to the game
-    end
+    -- end
 end
 
 function love.mousemoved(x, y)
-    imgui.MouseMoved(x, y)
-    if not imgui.GetWantCaptureMouse() then
+    -- imgui.MouseMoved(x, y)
+    -- if not imgui.GetWantCaptureMouse() then
         -- Pass event to the game
-    end
+    -- end
 end
 
 function love.wheelmoved(x, y)
-    imgui.WheelMoved(y)
-    if not imgui.GetWantCaptureMouse() then
+    -- imgui.WheelMoved(y)
+    -- if not imgui.GetWantCaptureMouse() then
         love.mouse.scrolled = y
-    end
+    -- end
 end
 
 function DisplayFPS()

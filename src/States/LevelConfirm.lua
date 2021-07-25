@@ -98,7 +98,7 @@ function LevelConfirm:render()
     -- rr = imgui.SliderFloat("R", rr, 0, 255);
     -- gg = imgui.SliderFloat("G", gg, 0, 255);
     -- bb = imgui.SliderFloat("B", bb, 0, 255);
-    imgui.Render();
+    -- imgui.Render();
 end
 
 function FetchData(data)
