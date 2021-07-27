@@ -8,6 +8,7 @@ local oldAngle = 0
 function MouseHandler:init()
     self.isDown = false
     self.tempRect = {}
+    self.Mode = 'adding'
 end
 
 function MouseHandler:update(dt, level)
@@ -15,7 +16,7 @@ function MouseHandler:update(dt, level)
     if not level.playing then
         self:Cancel()
     end
-    if love.mouse.wasPressed(1) and level.playing then
+    if love.mouse.wasPressed(1) and level.playing and self.Mode == 'adding' then
         self.tempRect.st = self.pos
         self.tempRect.en = Vector(10, 10)
         self.isDown = true
@@ -23,7 +24,7 @@ function MouseHandler:update(dt, level)
     if love.mouse.wasPressed(2) and self.isDown then
         self:Cancel()
     end
-    if self.isDown and level.playing then
+    if self.isDown and level.playing and self.Mode == 'adding' then
         self.tempRect.en = self.pos
         angleA = getAngle(self.tempRect.st.x, self.tempRect.st.y, self.tempRect.en.x, self.tempRect.en.y) +
                      3.14159265359
@@ -57,11 +58,11 @@ function MouseHandler:update(dt, level)
     else
         adderAngle = 0
     end
-    if love.mouse.wasReleased(1) and self.isDown then
+    if love.mouse.wasReleased(1) and self.isDown and self.Mode == 'adding' then
         self:AddToGame(level)
     end
 
-    if love.mouse.wasReleased(2) and not self.isDown then
+    if love.mouse.wasReleased(1) and self.Mode == 'removing' then
         self:CheckCollisionWithCBoxes(level)
     end
 
@@ -69,7 +70,7 @@ end
 
 function MouseHandler:render(level)
     love.graphics.setColor(1, 1, 1, 1)
-    if love.mouse.isDown(1) and level.playing then
+    if  self.isDown and level.playing and self.Mode == 'adding' then
         if math.sqrt((self.tempRect.st.x - self.tempRect.en.x) ^ 2 + (self.tempRect.st.y - self.tempRect.en.y) ^ 2) > 20 then
             love.graphics.setColor(0.92, 0.92, 0.92, 1)
         else
@@ -88,7 +89,7 @@ function MouseHandler:render(level)
                 -3.14159265359 + angleA / (180 / 3.14159265359))
         end
     end
-    if love.mouse.isDown(2) and not self.isDown then
+    if love.mouse.isDown(1) and not self.isDown and self.Mode == 'removing' then
         for i, v in ipairs(level.cBoxes) do
             if CheckMouseCollisionWithRectangle(self.pos, v[1], v[2], true) then
                 break
@@ -170,4 +171,14 @@ function MouseHandler:AddToGame(level)
         level:CreateCustomRectangle(x, y, size, height, rotation * (180 / 3.14159265))
     end
     self.isDown = false
+end
+
+function MouseHandler:ChangeMode()
+    if self.Mode == 'adding' then
+        self.Mode = 'removing'
+        self:Cancel()
+    else
+        self.Mode = 'adding'
+        self:Cancel()
+    end
 end

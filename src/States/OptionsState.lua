@@ -64,25 +64,25 @@ function OptionsState:update(dt)
         love.system.openURL("mailto:adawoud1000@hotmail.com")
     end
     
-    --[[
-        Full Screen
-    ]]
-    if self.suit:Checkbox(settingsOption.FullScreen, 1038, 130, 50, 39).hit then
-        options.FullScreen = settingsOption.FullScreen.checked
-        if options.FullScreen then
-            push:setupScreen(Window.width, Window.height, Window.width, Window.height, {
-                fullscreen = true,
-                resizable = false,
-                vsync = true
-            })
-        else
-            push:setupScreen(Window.width, Window.height, Window.width, Window.height, {
-                fullscreen = false,
-                resizable = true,
-                vsync = true
-            })
-        end
-    end
+    -- --[[
+    --     Full Screen
+    -- ]]
+    -- if self.suit:Checkbox(settingsOption.FullScreen, 1038, 130, 50, 39).hit then
+    --     options.FullScreen = settingsOption.FullScreen.checked
+    --     if options.FullScreen then
+    --         push:setupScreen(Window.width, Window.height, Window.width, Window.height, {
+    --             fullscreen = true,
+    --             resizable = false,
+    --             vsync = true
+    --         })
+    --     else
+    --         push:setupScreen(Window.width, Window.height, Window.width, Window.height, {
+    --             fullscreen = false,
+    --             resizable = true,
+    --             vsync = true
+    --         })
+    --     end
+    -- end
 
     --[[
         Music
@@ -176,14 +176,14 @@ function OptionsState:render()
     love.graphics.circle('fill', Window.width / 2, 245, 40)
     love.graphics.setColor(1, 1, 1, 1)
 
-    --[[
-        Full Screen
-    ]]
-    -- Big Rectangle
-    love.graphics.rectangle('line', 817, 113, 287, 71, 13, 13)
-    -- The Word "Full Screen" 
-    love.graphics.setFont(fonts['Bold32'])
-    love.graphics.print("Full Screen", 833, 130)
+    -- --[[
+    --     Full Screen
+    -- ]]
+    -- -- Big Rectangle
+    -- love.graphics.rectangle('line', 817, 113, 287, 71, 13, 13)
+    -- -- The Word "Full Screen" 
+    -- love.graphics.setFont(fonts['Bold32'])
+    -- love.graphics.print("Full Screen", 833, 130)
 
     --[[
         Music

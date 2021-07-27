@@ -104,7 +104,7 @@ function Level1:update(dt)
 end
 
 function Level1:render()
-    love.graphics.clear(0.16, 0.19, 0.2, 1)
+    love.graphics.setColor(0.16, 0.19, 0.2)
     if options.BallTrail then
         self.e:draw()
     end

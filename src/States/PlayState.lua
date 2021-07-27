@@ -88,12 +88,31 @@ function PlayState:update(dt)
                 end
             end
         end
+        if self.suit:Button('Clear All', {
+            font = fonts['Regular13']
+        }, 700, 27, 71, 30).hit then
+            self.LevelManager.current:ClearAllCustomBoxes()
+        end
+        if self.suit:Button('Undo', {
+            font = fonts['Regular13']
+        }, 800, 27, 71, 30).hit then
+            self.LevelManager.current:CleareLastCustomBox()
+        end
+        if self.suit:Button(self.LevelManager.current.mouseHandler.Mode, {
+            font = fonts['Regular13']
+        }, 1076, 28, 71, 30).hit then
+            self.LevelManager.current.mouseHandler:ChangeMode()
+        end
     end
 end
 
 function PlayState:render()
     -- Call the render function of the current level
     self.LevelManager:render()
+
+    rgb(255,255,255)
+    love.graphics.setFont(fonts['Bold16'])
+    love.graphics.print("Current Mode :", 938, 33)
 
     -- Draw SUIT (GUI stuff)
     self.suit:draw()

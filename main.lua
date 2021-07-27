@@ -8,9 +8,7 @@
     https://freesound.org/people/Erokia/sounds/183881/
     https://freesound.org/people/Erokia/sounds/477924/
 ]] --
---[[
-    MOUSE SHIFT
-]] require 'src.Dependencies'
+require 'src.Dependencies'
 -- require "imgui"
 
 function love.load()
@@ -48,8 +46,8 @@ function love.load()
 
     -- initialize our resolution, which will be rendered within our
     -- actual window no matter its dimensions
-    push:setupScreen(Window.width, Window.height, Window.width, Window.height, {
-        fullscreen = options.FullScreen,
+    push:setupScreen(Window.width, Window.height, Screen.width, Screen.height, {
+        fullscreen = true,
         resizable = true
     })
 
@@ -118,13 +116,13 @@ function love.update(dt)
 end
 
 function love.draw()
-
     -- Starting push to scale all the renders according to the window dimensions
     push:apply('start')
     gStateMachine:render()
     DisplayFPS()
     push:apply('end')
-
+    
+    love.graphics.print("Android Test")
     -- reset keys pressed
     love.keyboard.keysPressed = {}
     love.mouse.keysPressed = {}
@@ -147,8 +145,8 @@ function love.keypressed(key)
     -- add to our table of keys pressed this frame
     -- imgui.KeyPressed(key)
     -- if not imgui.GetWantCaptureKeyboard() then
-        love.keyboard.keysPressed[key] = true
-        -- Pass event to the game
+    love.keyboard.keysPressed[key] = true
+    -- Pass event to the game
     -- end
 end
 
@@ -161,16 +159,16 @@ end
 function love.mousepressed(x, y, key)
     -- imgui.MousePressed(key)
     -- if not imgui.GetWantCaptureMouse() then
-        love.mouse.keysPressed[key] = true
-        -- Pass event to the game
+    love.mouse.keysPressed[key] = true
+    -- Pass event to the game
     -- end
 end
 
 function love.mousereleased(x, y, key)
     -- imgui.MouseReleased(key)
     -- if not imgui.GetWantCaptureMouse() then
-        love.mouse.keysReleased[key] = true
-        -- Pass event to the game
+    love.mouse.keysReleased[key] = true
+    -- Pass event to the game
     -- end
 end
 
@@ -200,21 +198,21 @@ end
 function love.keyreleased(key)
     -- imgui.KeyReleased(key)
     -- if not imgui.GetWantCaptureKeyboard() then
-        -- Pass event to the game
+    -- Pass event to the game
     -- end
 end
 
 function love.mousemoved(x, y)
     -- imgui.MouseMoved(x, y)
     -- if not imgui.GetWantCaptureMouse() then
-        -- Pass event to the game
+    -- Pass event to the game
     -- end
 end
 
 function love.wheelmoved(x, y)
     -- imgui.WheelMoved(y)
     -- if not imgui.GetWantCaptureMouse() then
-        love.mouse.scrolled = y
+    love.mouse.scrolled = y
     -- end
 end
 
